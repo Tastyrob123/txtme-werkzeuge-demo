@@ -1,0 +1,296 @@
+/* Markenbuch txtme.social · Kapitel (buch/). Kopie der Bewegungssprache von marke/buch/marke.css der Vorlage: Zeilen-Maske, Auftritte beim Scrollen,
+   Grosse Zahlen, Farbwerte kopieren, «Save as PDF» mit Druckregeln (Karten nie zerschnitten). Kleid: Shop und Werkbank 2.0 (Schwarz, Knochenweiss,
+   Space Grotesk 600, Verlauf nur als Wort, Strich, Linie, Knopf; jedes Blatt schiebt sich mit runder Kante über das vorige). Nur transform und opacity. */
+@font-face{font-family:"Space Grotesk";font-style:normal;font-weight:300 700;font-display:swap;src:url("../fonts/SpaceGrotesk.woff2") format("woff2-variations"),url("../fonts/SpaceGrotesk.woff2") format("woff2")}
+:root{--ink:#0b0b0c;--surface:#131315;--surface-2:#1a1a1d;--bone:#efece6;--bone-2:#e5e1d9;--karte:#f7f5f1;--bright:#f4f2ee;--muted:#9d9b96;--faint:#66645f;--tinte:#0b0b0c;--tinte-2:#5b5954;--tinte-3:#8a8781;
+  --line:rgba(255,255,255,.1);--line-strong:rgba(255,255,255,.24);--linie-d:rgba(11,11,12,.12);--linie-d2:rgba(11,11,12,.28);--cyan:#60c4e3;--pink:#eb5986;--grad:linear-gradient(100deg,#60c4e3,#eb5986);
+  --grad-soft:linear-gradient(100deg,#9fdcf0,#cfd5ff 55%,#f2a7bf);--grad-soft-d:linear-gradient(100deg,#2a9cc2,#6b6fd8 55%,#d9467a);
+  --e1:cubic-bezier(.22,1,.36,1);--e2:cubic-bezier(.2,.8,.2,1);--rand:clamp(18px,4vw,56px);--abschnitt:clamp(72px,9vw,140px);--max:1360px;--rund:clamp(22px,3vw,40px)}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:90px;background:var(--ink);overflow-x:clip}
+body{margin:0;background:var(--ink);color:var(--bright);font:16px/1.6 "Space Grotesk",ui-sans-serif,system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;-webkit-font-smoothing:antialiased;font-variant-numeric:tabular-nums;overflow-x:clip}
+a{color:inherit}
+img{display:block;max-width:100%;height:auto}
+button{font:inherit;color:inherit;cursor:pointer;border:0;background:none;padding:0}
+h1,h2,h3,p,ul,ol,figure{margin:0}
+ul,ol{padding:0;list-style:none}
+table{border-collapse:collapse}
+::selection{background:var(--cyan);color:var(--ink)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+.logo{display:inline-block;width:1em;height:.886em;background:currentColor;-webkit-mask:url(../media/logo-white.svg) center/contain no-repeat;mask:url(../media/logo-white.svg) center/contain no-repeat;vertical-align:-.1em}
+svg{fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* ---------- Leiste oben ---------- */
+.mb-leiste{position:fixed;left:0;right:0;top:0;z-index:50;display:flex;align-items:center;gap:22px;height:64px;padding:0 var(--rand);background:var(--ink);box-shadow:inset 0 -1px 0 rgba(255,255,255,.14)}
+.mb-leiste__z{display:flex;align-items:center;gap:10px;text-decoration:none;white-space:nowrap}
+.mb-leiste__z .logo{font-size:24px}
+.mb-leiste__z b{font-weight:600;font-size:14px;letter-spacing:-.01em}
+.mb-leiste__k{display:flex;gap:2px;margin:0 auto;overflow:hidden}
+.mb-leiste__k a{display:inline-flex;padding:9px 10px;text-decoration:none;font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);white-space:nowrap;transition:color .3s}
+.mb-leiste__k a:hover,.mb-leiste__k a.an{color:var(--bright)}
+.mb-leiste__r{display:flex;align-items:center;gap:10px}
+.mb-sp{font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-decoration:none;padding:8px 6px}
+.mb-sp:hover{color:var(--bright)}
+@media (max-width:1100px){.mb-leiste__k{display:none}}
+.kn{display:inline-flex;align-items:center;justify-content:center;gap:12px;height:48px;padding:0 24px;border-radius:999px;font-size:11px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;text-decoration:none;white-space:nowrap;
+  color:var(--bright);background:var(--ink);box-shadow:inset 0 0 0 1px rgba(255,255,255,.18);transition:transform .45s var(--e2)}
+.kn:hover{transform:translateY(-2px)}.kn:active{transform:translateY(1px)}
+.kn i{display:grid}.kn svg{width:13px;height:13px}
+.kn--brand{background:var(--grad);color:var(--ink);box-shadow:inset 0 0 0 1px rgba(11,11,12,.12)}
+.kn--linie{background:transparent;box-shadow:inset 0 0 0 1px rgba(255,255,255,.3)}
+.bone .kn--linie{color:var(--tinte);box-shadow:inset 0 0 0 1px var(--linie-d2)}
+.kn--klein{height:40px;padding:0 18px;font-size:10px}
+.kn-reihe{display:flex;flex-wrap:wrap;gap:12px}
+
+/* ---------- Flächen ---------- */
+.in{max-width:var(--max);margin:0 auto;position:relative}
+.ab{position:relative;padding:var(--abschnitt) var(--rand)}
+.blatt{border-radius:var(--rund) var(--rund) 0 0;margin-top:calc(var(--rund) * -1);padding-bottom:calc(var(--abschnitt) + var(--rund))}
+.ink{background:var(--ink);color:var(--bright)}
+.bone{background:var(--bone);color:var(--tinte)}
+.room{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.045) 1px,transparent 1px);background-size:40px 40px;-webkit-mask:radial-gradient(90% 80% at 60% 40%,#000 20%,transparent 100%);mask:radial-gradient(90% 80% at 60% 40%,#000 20%,transparent 100%)}
+.kap{font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted);display:flex;gap:14px;align-items:center;margin-bottom:clamp(20px,2.4vw,34px)}
+.kap::after{content:'';width:34px;height:2px;background:var(--grad);order:1}
+.kap b{font-weight:600;order:0;color:var(--cyan)}.kap span{order:2}
+.bone .kap{color:var(--tinte-3)}.bone .kap b{color:#2a9cc2}
+.kap--mitte{justify-content:center;flex-wrap:wrap;text-align:center}
+@media (max-width:640px){.kap--mitte::after{display:none}.kap--mitte b{width:100%}}
+.mk{margin-bottom:clamp(30px,4vw,56px)}
+.mk__t{font-weight:600;font-size:clamp(2.3rem,5.4vw,5.2rem);line-height:1.02;letter-spacing:-.035em;text-wrap:balance}
+.mk__t em{font-style:normal;background:var(--grad-soft);-webkit-background-clip:text;background-clip:text;color:transparent}
+.bone .mk__t em{background:var(--grad-soft-d);-webkit-background-clip:text;background-clip:text}
+.z{display:block;overflow:hidden;padding:.12em .04em .08em;margin:-.12em -.04em -.08em}
+.z>span{display:block;transform:translateY(112%);transition:transform 1.25s var(--e1);transition-delay:calc(var(--n,0) * 110ms)}
+.da .z>span,.z.da>span{transform:none}
+.z:nth-child(2)>span{--n:1}
+.lead{margin-top:clamp(16px,2vw,26px);font-size:clamp(1.05rem,1.3vw,1.3rem);line-height:1.6;max-width:62ch;color:var(--muted)}
+.bone .lead{color:var(--tinte-2)}
+.lead--mitte{margin-left:auto;margin-right:auto;text-align:center}
+.lauf{font-size:1.05rem;line-height:1.65;max-width:56ch;color:rgba(244,242,238,.82)}
+.bone .lauf{color:rgba(11,11,12,.8)}
+.haar{border:0;height:1px;background:var(--line);margin:18px 0}
+.bone .haar{background:var(--linie-d)}
+
+/* ---------- Auftritte ---------- */
+[data-r]{opacity:0;transform:translateY(32px);transition:opacity 1.05s var(--e1),transform 1.35s var(--e1);transition-delay:calc(var(--i,0) * 95ms)}
+[data-r].da{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){[data-r]{opacity:1;transform:none;transition:none}.z>span{transform:none;transition:none}}
+
+/* ---------- Titel ---------- */
+.titel{position:relative;min-height:100svh;display:flex;align-items:center;padding:clamp(110px,14vh,170px) var(--rand) calc(clamp(60px,8vh,100px) + var(--rund));background:var(--ink);overflow:hidden}
+.titel .in{display:flex;flex-direction:column;align-items:center;text-align:center;width:100%}
+.titel__logo{width:clamp(140px,22vw,260px);margin-bottom:clamp(30px,4vw,54px)}
+.titel__w{font-weight:600;font-size:clamp(3rem,9vw,8.4rem);line-height:.96;letter-spacing:-.04em;margin:0}
+.zahlen{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;margin-top:clamp(40px,6vw,80px);width:min(100%,900px);padding-top:28px;border-top:1px solid var(--line)}
+.zahlen div{display:flex;flex-direction:column;align-items:center;gap:6px}
+.zahlen b{font-weight:600;font-size:clamp(2.4rem,4vw,3.6rem);line-height:1;letter-spacing:-.035em}
+.zahlen span{font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--muted)}
+
+/* ---------- Stimme ---------- */
+.voice{display:grid;gap:clamp(26px,3vw,44px)}
+.voice__kern{font-weight:600;font-size:clamp(1.6rem,3vw,2.7rem);line-height:1.15;letter-spacing:-.03em;max-width:28ch;text-wrap:balance}
+.voice__zwei,.voice__drei{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,3vw,48px);padding-top:clamp(22px,2.5vw,36px);border-top:1px solid var(--linie-d)}
+.voice__drei{grid-template-columns:1fr 1fr 1fr}
+.voice__liste{display:grid;gap:4px;font-size:1.05rem}
+.voice__liste li::before{content:'·';color:var(--pink);margin-right:10px;font-weight:600}
+.voice__liste--zwei{grid-template-columns:1fr 1fr}
+.voice__haltung{font-weight:600;font-size:clamp(1.3rem,2.2vw,1.9rem);line-height:1.25;letter-spacing:-.025em}
+.voice__ton{font-weight:600;font-size:clamp(1.5rem,2.6vw,2.2rem);letter-spacing:-.03em;margin-bottom:12px}
+.voice__vor{color:var(--tinte-2);margin:10px 0 4px}
+.voice__grenze{margin-top:14px;color:var(--tinte-2)}
+.voice__schluss{font-weight:600;font-size:clamp(1.2rem,2vw,1.7rem);line-height:1.3;letter-spacing:-.025em}
+
+/* ---------- Fenster (ganzes Foto) ---------- */
+.fenster{position:relative;height:min(78vh,860px);overflow:hidden;background:var(--ink)}
+.fenster__b{position:absolute;inset:0}
+.fenster__b img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- Logo ---------- */
+.lts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-bottom:clamp(36px,5vw,64px)}
+.lt{box-shadow:inset 0 0 0 1px var(--line)}
+.bone .lt{box-shadow:inset 0 0 0 1px var(--linie-d)}
+.lt__f{height:260px;display:grid;place-items:center;padding:34px}
+.lt--dunkel .lt__f{background:var(--surface)}
+.lt--hell .lt__f{background:var(--bone)}
+.lt__f img{max-height:180px;width:auto;max-width:100%}
+.lt figcaption{padding:16px 18px 18px}
+.lt figcaption b{display:block;font-weight:600;font-size:1.05rem;letter-spacing:-.015em;margin-bottom:4px}
+.lt figcaption p{font-size:.95rem;color:var(--muted);line-height:1.5}
+.lt-gross{display:grid;place-items:center;min-height:320px;padding:40px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line)}
+.lt-gross img{width:min(60%,320px)}
+.mk-zwei{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,64px);align-items:start}
+.mk-liste{display:grid;gap:0}
+.mk-liste li{padding:14px 0 14px 28px;border-top:1px solid var(--line);position:relative;font-size:1.02rem;line-height:1.55}
+.bone .mk-liste li{border-color:var(--linie-d)}
+.mk-liste li::before{content:'';position:absolute;left:0;top:24px;width:14px;height:2px;background:var(--grad)}
+.mk-liste li:last-child{border-bottom:1px solid var(--line)}.bone .mk-liste li:last-child{border-color:var(--linie-d)}
+
+/* ---------- Farben ---------- */
+.fg{display:grid;grid-template-columns:220px minmax(0,1fr);gap:24px;padding:26px 0;border-top:1px solid var(--linie-d)}
+.fg:first-of-type{border-top:0}
+.fg__k b{display:block;font-weight:600;font-size:1.15rem;letter-spacing:-.02em;margin-bottom:6px}
+.fg__k p{font-size:.95rem;color:var(--tinte-2);line-height:1.5}
+.fg__r{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+.fb{display:flex;flex-direction:column;text-align:left;background:var(--karte);box-shadow:inset 0 0 0 1px var(--linie-d);cursor:copy;transition:box-shadow .3s;break-inside:avoid}
+.fb:hover{box-shadow:inset 0 0 0 1px var(--tinte)}
+.fb__f{position:relative;display:grid;place-items:center;height:110px;background:var(--c);box-shadow:inset 0 0 0 1px rgba(11,11,12,.08)}
+.fb__ok{padding:6px 10px 5px;background:var(--ink);color:var(--bright);font-size:9.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;opacity:0;transform:scale(.9);transition:opacity .3s,transform .45s var(--e1)}
+.fb.kopiert .fb__ok{opacity:1;transform:none}
+.fb__n{display:flex;flex-direction:column;gap:2px;padding:12px 12px 4px}
+.fb__n b{font-weight:600;font-size:1rem;letter-spacing:-.01em}
+.fb__n small{font-size:.8rem;color:var(--tinte-2);line-height:1.35}
+.fb__w{padding:2px 12px 12px;font-size:10.5px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--tinte-3);overflow-wrap:anywhere}
+.fl{position:relative;display:grid;grid-template-columns:1fr 1fr;height:220px;margin-top:clamp(30px,4vw,54px)}
+.fl__ink{background:var(--ink);color:var(--bright)}.fl__bone{background:var(--karte);color:var(--tinte);box-shadow:inset 0 0 0 1px var(--linie-d)}
+.fl>div{display:grid;place-items:center;font-size:10.5px;font-weight:600;letter-spacing:.22em;text-transform:uppercase}
+.fl__grad{position:absolute;left:10%;right:10%;bottom:22%;height:2px;background:var(--grad)}   /* unter den Beschriftungen, nie durch sie (Blick-Prüfung Fund 1) */
+
+/* ---------- Herkunft ---------- */
+.hks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.hk{box-shadow:inset 0 0 0 1px var(--line)}
+.hk__b{aspect-ratio:4/5;overflow:hidden;background:var(--surface)}
+.hk__b img{width:100%;height:100%;object-fit:cover}
+.hk figcaption{padding:18px 18px 20px}
+.hk__f{display:flex;gap:6px;margin-bottom:12px}
+.hk__f i{width:22px;height:22px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.2)}
+.hk figcaption b{display:block;font-weight:600;font-size:1.15rem;letter-spacing:-.02em;margin-bottom:6px}
+.hk figcaption p{font-size:.95rem;color:var(--muted);line-height:1.55}
+
+/* ---------- Schrift ---------- */
+.sp-probe{display:grid;grid-template-columns:auto minmax(0,1fr);gap:30px;align-items:center;padding:30px;background:var(--karte);box-shadow:inset 0 0 0 1px var(--linie-d);margin-bottom:28px}
+.sp-probe__g{font-weight:600;font-size:clamp(4rem,9vw,8rem);line-height:.9;letter-spacing:-.04em}
+.sp-probe__t{display:flex;flex-direction:column;gap:6px;min-width:0}
+.sp-probe__t b{font-weight:600;font-size:1.4rem;letter-spacing:-.02em}
+.sp-probe__t small{font-size:.9rem;color:var(--tinte-2)}
+.sp-probe__z{margin-top:10px;font-size:clamp(1.1rem,2vw,1.6rem);letter-spacing:-.02em;overflow-wrap:anywhere}
+.sr-wrap{overflow-x:auto;margin-bottom:28px}
+.sr{width:100%;min-width:900px}
+.sr th{text-align:left;font-size:10px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--tinte-3);padding:0 12px 12px 0;border-bottom:1px solid var(--linie-d2)}
+.sr td{padding:14px 12px 14px 0;border-bottom:1px solid var(--linie-d);font-size:.92rem;color:var(--tinte-2);vertical-align:middle}
+.sr td:first-child{color:var(--tinte);white-space:nowrap;max-width:260px;overflow:hidden;text-overflow:ellipsis}
+/* Handy: jede Rolle als Block mit beschrifteten Werten statt einer Tabelle breiter als der Bildschirm (Blick-Prüfung Fund 2) */
+@media (max-width:640px){.sr-wrap{overflow:visible}.sr{min-width:0}.sr thead{display:none}.sr,.sr tbody,.sr tr{display:block}
+  .sr tr{display:grid;grid-template-columns:auto minmax(0,1fr);column-gap:14px;padding:14px 0;border-bottom:1px solid var(--linie-d)}
+  .sr td{display:contents;border:0;padding:0}.sr td:first-child{display:block;grid-column:1/-1;max-width:none;white-space:normal;overflow:visible;margin-bottom:8px}
+  .sr td[data-l]::before{content:attr(data-l);font-size:10px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--tinte-3);padding:3px 0}
+  .sr td.sr__p{font-size:min(var(--fs),2rem)!important}}
+.sr td code{font-family:inherit;font-weight:600;color:var(--tinte);font-size:.9rem}
+.sr tr{break-inside:avoid}
+
+/* ---------- Raum ---------- */
+.raum-probe{padding:30px;background:var(--surface);box-shadow:inset 0 0 0 1px var(--line)}
+.raum-probe__t{font-weight:600;font-size:clamp(1.6rem,3vw,2.6rem);line-height:1.04;letter-spacing:-.025em;margin-bottom:14px}
+.grad-t{background:var(--grad-soft);-webkit-background-clip:text;background-clip:text;color:transparent}
+.raum-probe .lauf{margin:0 0 22px}
+
+/* ---------- Bilder ---------- */
+.bis{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:170px;gap:12px;margin-bottom:clamp(30px,4vw,54px)}
+.bi{overflow:hidden;background:var(--surface);grid-column:span 2;grid-row:span 2}
+.bi--quer{grid-column:span 4;grid-row:span 1}   /* zwei Hochformate + zwei Querformate füllen das Raster ohne Loch (Blick-Prüfung Fund 4) */
+.bis{grid-auto-flow:dense}
+.bi img{width:100%;height:100%;object-fit:cover}
+.bi:nth-child(4){background:#dbd9dc}.bi:nth-child(4) img{object-fit:contain;background:#dbd9dc}   /* Studio-Grund des Produktfotos selbst */
+
+/* ---------- Sätze ---------- */
+.saetze{display:grid;gap:12px}
+.saetze li{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;padding:clamp(20px,2.4vw,30px) clamp(20px,2.6vw,36px);background:var(--ink);color:var(--bright);break-inside:avoid}
+.saetze q{quotes:'«' '»';font-weight:600;font-size:clamp(1.2rem,2.2vw,1.8rem);line-height:1.2;letter-spacing:-.025em;text-wrap:balance}
+.saetze small{font-size:10.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);text-align:right}
+
+/* ---------- Schluss ---------- */
+.schluss .in{position:relative}
+.schluss__f{margin-top:clamp(40px,6vw,80px);padding-top:22px;border-top:1px solid var(--line);font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:10px}
+.schluss__f .logo{font-size:20px}
+.schluss__logo,.titel__logo--druck,.fg-weiter{display:none}
+/* Paket (Abnahme 2 N2): jede Datei mit Grösse, auch einzeln zu laden */
+.paket{margin:clamp(10px,2vw,24px) 0 clamp(30px,4vw,48px)}
+.paket__s{color:var(--muted);margin:-8px 0 18px;max-width:62ch}
+.paket__l{margin:0;display:grid;border-top:1px solid var(--line)}
+.paket__z{display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px;padding:14px 0;border-bottom:1px solid var(--line);break-inside:avoid}
+.paket__z dt{font-weight:600;font-size:1.02rem;letter-spacing:-.01em}
+.paket__z dd{margin:0;display:flex;flex-wrap:wrap;gap:8px 22px}
+.paket__z a{display:inline-flex;align-items:baseline;gap:8px;text-decoration:none;font-size:.95rem;color:var(--bright);overflow-wrap:anywhere}
+.paket__z a:hover span{text-decoration:underline;text-underline-offset:3px}
+.paket__z small{font-size:10.5px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+@media (max-width:640px){.paket__z{grid-template-columns:1fr;gap:8px}}
+
+/* ---------- Schmal ---------- */
+@media (max-width:1000px){.lts,.hks{grid-template-columns:1fr}.mk-zwei{grid-template-columns:1fr}.voice__drei{grid-template-columns:1fr 1fr}.bis{grid-template-columns:repeat(2,minmax(0,1fr))}.bi,.bi--quer{grid-column:span 1;grid-row:span 1}.fg{grid-template-columns:1fr;gap:12px}}
+@media (max-width:640px){.voice__zwei,.voice__drei{grid-template-columns:1fr}.voice__liste--zwei{grid-template-columns:1fr}.zahlen{grid-template-columns:1fr 1fr}.sp-probe{grid-template-columns:1fr}.saetze li{grid-template-columns:1fr}.saetze small{text-align:left}.fl{height:160px}.mb-leiste{gap:10px;padding:0 14px}.mb-leiste__r{gap:6px}.mb-leiste__r .kn{padding:0 12px}.mb-sp{padding:8px 2px}.mb-leiste__r .kn:last-child{display:none}.lt__f{height:200px}}
+
+/* ---------- Druck: kleine Abstände, Karten nie zerschnitten, nur Bildschirm-Knöpfe weg ---------- */
+@media (max-width:380px){.mb-leiste__z b{display:none}}   /* sehr schmal: nur das Logo, damit die Knöpfe Abstand zum Rand halten (Abnahme F09) */
+@page{size:A4;margin:11mm 12mm 12mm}
+@media print{
+  html,body{background:#fff;color:#0b0b0c}
+  html{font-size:15px}body{font-size:15px}
+  /* Druckbreite (rund 700 px) liegt unter den Schmal-Regeln des Bildschirms: Raster wie am Rechner */
+  .lts{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:24px}.lt__f{height:150px;padding:22px}.lt__f img{max-height:110px}.lt figcaption{padding:10px 12px 12px}.lt figcaption p{font-size:.85rem}
+  .fg{grid-template-columns:170px minmax(0,1fr);gap:18px;padding:16px 0}.fb__f{height:80px}
+  .bis{grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:118px;gap:8px;margin-bottom:22px}.bi{grid-column:span 2;grid-row:span 2}.bi--quer{grid-column:span 4;grid-row:span 1}
+  .mk-liste li{padding:10px 0 10px 26px;font-size:.95rem}.mk-liste li::before{top:19px}
+  .mb-leiste,.room,.kn,.fb__ok,.fenster{display:none!important}
+  .ab,.titel{padding:28px 0;min-height:0;border-radius:0;margin:0;break-before:page}
+  .blatt{padding-bottom:28px}
+  .ink{background:#fff;color:#0b0b0c}.ink .lead,.ink .lauf,.ink .lt figcaption p,.ink .hk figcaption p{color:#5b5954}
+  .ink .mk__t em,.bone .mk__t em{background:none;color:#2a9cc2;-webkit-text-fill-color:#2a9cc2}
+  .grad-t{background:none!important;color:#9fdcf0;-webkit-text-fill-color:#9fdcf0}   /* Verlauf als Schriftfüllung druckt mit Strichen und Kante (Blick-Prüfung Fund 5) */
+  .lt--dunkel .lt__f,.lt-gross,.raum-probe,.saetze li,.fl__ink,.li-logo{background:#0b0b0c!important;color:#f4f2ee;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .fb__f,.hk__f i,.fl__grad,.kap::after,.mk-liste li::before{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .fb,.lt,.hk,.bi,.saetze li,.sr tr,.voice__zwei>div,.voice__drei>div,.sp-probe,.raum-probe,.mk-liste li,.fg,.paket__z{break-inside:avoid}
+  .mk{break-after:avoid}
+  [data-r],.z>span{opacity:1!important;transform:none!important;transition:none!important}
+  .mk__t{font-size:2.4rem}.voice__kern{font-size:1.6rem}
+  /* Abnahme F03: Herkunft der Farben drei nebeneinander, Foto und Satz immer auf derselben Seite (Fehlerbuch 21.10.: nichts zerschnitten) */
+  .mk-zwei{grid-template-columns:1fr 1fr;gap:24px}.lt-gross{break-inside:avoid;min-height:0;padding:28px}   /* Logo-Tafel nie über den Seitenumbruch */
+  .hks{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}.hk figcaption{padding:12px 12px 14px}.hk figcaption b{font-size:1rem}.hk figcaption p{font-size:.85rem}
+
+  /* Abnahme 2 N1: Titelblatt in jeder Druckart weiss mit dunkler Schrift und dem Logo für helle Flächen (Tinte mit Verlauf).
+     Ohne Hintergrundgrafiken fehlten Sprechblase und «social» (weiss auf weiss), mit ihnen standen Titel und Zahlen schwarz auf schwarz. */
+  .titel{break-before:auto;display:flex;align-items:center;background:#fff!important;color:#0b0b0c;height:262mm;padding:0;overflow:visible}
+  .titel .in{justify-content:center}
+  .titel__logo--schirm{display:none}
+  .titel__logo--druck{display:block;width:62mm;margin-bottom:16mm}
+  .titel__w{font-size:4.6rem;color:#0b0b0c}
+  .titel .kap{color:#5b5954}.titel .kap b{color:#2a9cc2}
+  .titel .lead{color:#5b5954}
+  .zahlen{border-top-color:rgba(11,11,12,.16);margin-top:18mm}
+  .zahlen span{color:#5b5954}
+  /* Zahlen im Druck immer fertig gezählt, egal wann gedruckt wird (sie laufen am Bildschirm 1,75 s) */
+  .zahlen b{font-size:0!important;color:#0b0b0c}
+  .zahlen b::after{content:attr(data-zahl);font-size:3rem}
+
+  /* Abnahme 2 N2: jedes Kapitel ganz auf einer Seite, keine fast leere Seite */
+  #k1 .mk{margin-bottom:18px}#k1 .lead{margin-top:10px;font-size:.95rem}
+  #k1 .voice{gap:14px}#k1 .voice__zwei,#k1 .voice__drei{padding-top:12px;gap:22px}
+  #k1 .voice__kern{font-size:1.35rem}#k1 .voice__haltung{font-size:1.15rem}#k1 .voice__ton{font-size:1.3rem;margin-bottom:6px}#k1 .voice__schluss{font-size:1.05rem}
+  #k1 .voice__liste{font-size:.88rem;gap:1px;line-height:1.45}#k1 .voice__vor,#k1 .voice__grenze{font-size:.88rem;margin-top:6px}
+  #k1 .kap{margin-bottom:10px}
+  .sr-wrap{overflow:visible;margin-bottom:16px}.sr{min-width:0}
+  .sr td{padding:8px 8px 8px 0;font-size:.8rem}.sr th{padding:0 8px 8px 0}
+  .sr td.sr__p{font-size:calc(var(--fs) * .5)!important;white-space:nowrap;max-width:none;overflow:visible;text-overflow:clip}
+  .sp-probe{padding:18px 22px;margin-bottom:18px}.sp-probe__g{font-size:4.2rem}
+  #k5 .mk-liste{grid-template-columns:1fr 1fr;column-gap:26px}#k5 .mk-liste li{padding:8px 0 8px 24px;font-size:.88rem}#k5 .mk-liste li::before{top:17px}
+  #k5 .mk-liste li:nth-last-child(2){border-bottom:1px solid var(--linie-d)}
+  .sr td{padding:5px 8px 5px 0;font-size:.7rem;line-height:1.3}#k5 .mk{margin-bottom:16px}
+  /* Farben: je Gruppe eine Reihe, so passt das Kapitel auf zwei volle Seiten */
+  .fg__r{grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}.fb__f{height:58px}.fb__n{padding:8px 8px 2px}.fb__n b{font-size:.9rem}.fb__n small{font-size:.72rem}.fb__w{padding:2px 8px 8px;font-size:9.5px}
+  .fg__k b{font-size:1rem}.fg__k p{font-size:.85rem}
+  .fl{height:110px;margin-top:22px}
+  /* Farben sind länger als eine Seite: zweite Seite mit eigenem Kopf statt Fortsetzung mitten in der Liste */
+  .fg-weiter{display:block;break-before:page;padding-top:4px}.fg-weiter+.fg{border-top:0}
+  /* Bewegung und feste Sätze sind kurz: beide auf einer Seite, jedes Kapitel ganz */
+  #k8{padding-bottom:10px}#k8 .mk,#k9 .mk{margin-bottom:16px}#k8 .lead,#k9 .lead{margin-top:8px}
+  #k9{break-before:auto;break-inside:avoid;padding-top:26px;border-top:1px solid rgba(11,11,12,.16)}
+  .saetze{gap:8px}.saetze li{padding:12px 18px;gap:14px}.saetze q{font-size:1.1rem}
+  .sp-probe__g{font-size:3.4rem!important}.sp-probe{padding:14px 18px!important;gap:20px;margin-bottom:14px!important}
+  /* Kapitel 10 als gestalteter Schluss: Paket, dann unten Logo und Absender */
+  .schluss{display:flex;flex-direction:column}
+  .schluss .in{display:flex;flex-direction:column;min-height:236mm;width:100%}
+  .paket__l{border-top-color:rgba(11,11,12,.16)}.paket__z{border-bottom-color:rgba(11,11,12,.16);grid-template-columns:150px minmax(0,1fr);padding:11px 0}
+  .paket__z a{color:#0b0b0c}.paket__s,.paket__z small{color:#5b5954}
+  .schluss__ende{margin-top:auto;display:flex;flex-direction:column;align-items:center;text-align:center;gap:0}
+  .schluss__logo{display:block;width:36mm;margin:0 auto 10mm}
+  .schluss__f{margin-top:0;border-top-color:rgba(11,11,12,.16);color:#5b5954;justify-content:center;width:100%}
+  .schluss__f .logo{display:none}
+}

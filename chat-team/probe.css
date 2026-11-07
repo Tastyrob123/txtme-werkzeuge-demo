@@ -1,0 +1,42 @@
+/* The chat window of txtme.social for «Try the chat» (look of the window on the website: dark card, Space Grotesk, cyan→pink only on the line and the dot). */
+@font-face{font-family:'Space Grotesk';font-style:normal;font-weight:300 700;font-display:swap;src:url('fonts/SpaceGrotesk.woff2') format('woff2')}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:#0b0b0c;color:#f4f2ee;font:14px/1.5 'Space Grotesk',ui-sans-serif,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+.chat{display:grid;grid-template-rows:auto minmax(0,1fr) auto auto;height:100%;background:#0b0b0c}
+.chat__kopf{display:flex;align-items:center;gap:12px;padding:16px 18px 14px;border-bottom:1px solid transparent;border-image:linear-gradient(100deg,rgba(96,196,227,.55),rgba(244,242,238,.12),rgba(235,89,134,.55)) 1}
+.chat__kopf img{width:34px;height:auto}
+.chat__kopf b{display:block;font-size:14px;font-weight:600}
+.chat__kopf small{display:flex;align-items:center;gap:6px;font-size:11px;color:#9d9b96}
+.chat__kopf small i{width:7px;height:7px;border-radius:50%;background:#60c4e3}
+.chat__lauf{overflow:auto;padding:18px 16px;scrollbar-width:thin}
+.chat__gruss{display:flex;flex-direction:column;align-items:center;text-align:center;gap:8px;padding:10px 0 6px}
+.chat__gruss img{width:52px;height:auto;margin-bottom:6px}
+.chat__gruss h2{margin:0;font-size:22px;line-height:1.1;font-weight:600;letter-spacing:-.02em}
+.chat__gruss p{margin:0 0 10px;max-width:30ch;color:#9d9b96;font-size:12.5px}
+.chat__karten{display:grid;grid-template-columns:1fr 1fr;gap:10px;width:100%}
+.chat__karten button{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:0 0 10px;border:0;border-radius:12px;overflow:hidden;background:#131315;color:#f4f2ee;text-align:left;cursor:pointer;font:inherit;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.chat__karten img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block;margin-bottom:8px}
+.chat__karten b{padding:0 10px;font-size:12.5px;font-weight:600}
+.chat__karten small{padding:0 10px;font-size:11px;color:#9d9b96}
+.msg{max-width:88%;margin:0 0 10px;padding:10px 13px;border-radius:14px;font-size:13.5px;line-height:1.5;white-space:pre-wrap;overflow-wrap:anywhere}
+.msg--kunde{margin-left:auto;background:#f4f2ee;color:#0b0b0c;border-bottom-right-radius:4px}
+.msg--chat{background:#1a1a1d;color:#f4f2ee;border-bottom-left-radius:4px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08)}
+.msg--chat small{display:block;margin-bottom:4px;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#60c4e3;font-weight:600}
+.msg--wartet{color:#9d9b96}
+.chat__feld{display:grid;grid-template-columns:1fr auto;align-items:end;gap:8px;margin:0 14px;padding:10px 10px 10px 14px;border-radius:16px;background:#131315;box-shadow:inset 0 0 0 1px rgba(255,255,255,.14)}
+.chat__feld textarea{width:100%;max-height:120px;border:0;background:none;color:#f4f2ee;font:inherit;font-size:14px;resize:none;outline:0;padding:6px 0}
+.chat__feld textarea::placeholder{color:#9d9b96}
+.chat__feld button{width:34px;height:34px;border:0;border-radius:50%;background:linear-gradient(100deg,#60c4e3,#eb5986);color:#0b0b0c;cursor:pointer;display:grid;place-items:center}
+.chat__feld svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.chat__fuss{margin:0;padding:8px 16px 12px;text-align:center;font-size:10.5px;color:#66645f}
+/* Narrow phone frame (the tool on a phone, Abnahme 07.11.2026 C2): «Ask us anything» stays on one line, head and foot take less room,
+   so the greeting is not cut by the field */
+@media (max-width:420px){   /* also the phone frame in the tool on a phone, so «Shipping & returns» is not cut by the field (Blick 07.11.2026 Fund 8) */
+  .chat__karten img{aspect-ratio:16/9;margin-bottom:6px}
+  .chat__kopf{gap:10px;padding:12px 12px 10px}.chat__kopf img{width:28px}.chat__kopf>div{min-width:0}.chat__kopf small{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.chat__kopf small i{display:inline-block;margin-right:6px;vertical-align:1px}
+  .chat__lauf{padding:14px 12px}.chat__gruss>img{width:44px;margin-bottom:2px}.chat__gruss h2{font-size:20px}
+  .chat__feld{gap:6px;margin:0 8px;padding:7px 7px 7px 12px}.chat__feld textarea{font-size:13px}
+  .chat__fuss{padding:6px 10px 10px;font-size:10px}
+}
+.chat{grid-template-columns:minmax(0,1fr)}.chat__karten{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.chat__karten button{min-width:0}
+@media (max-width:200px){.chat__feld{padding:6px 6px 6px 10px}.chat__feld button{width:30px;height:30px}}

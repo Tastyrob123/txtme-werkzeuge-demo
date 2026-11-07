@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="demo.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Check · Print Workshop</title>
+<style>
+/* Prüfseite (Master I04/R23): läuft ohne das Werkzeug, prüft Browser, Marke, Schriften, Vorlagen, Speicher, KI-Dienst; Lexikon; Reparaturen mit zweitem Klick. Kleid txtme (DESIGN.md). */
+:root{--ink:#0b0b0c;--bone:#efece6;--bright:#f4f2ee;--muted:#9d9b96;--tinte2:#5b5954;--cyan:#60c4e3;--pink:#eb5986;--karte:#f7f5f1}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bone);color:var(--ink);font:15px/1.5 "Space Grotesk",system-ui,sans-serif}
+@font-face{font-family:"Space Grotesk";src:url("haeuser/txtme/schriften/SpaceGrotesk-Regular.ttf");font-weight:400}
+@font-face{font-family:"Space Grotesk";src:url("haeuser/txtme/schriften/SpaceGrotesk-SemiBold.ttf");font-weight:600}
+header{display:flex;align-items:center;gap:14px;padding:16px clamp(18px,4vw,56px);background:var(--ink);color:var(--bright)}
+header .z{width:34px;height:30px;display:block}   /* Zeichen aus marke.json (vorher ../../public/media/logo-white.svg, das der Server nicht ausliefert: 404, Abnahme 06.11.2026 Fund 10) */
+header b{font-weight:600;letter-spacing:.18em;text-transform:uppercase;font-size:12px}
+header small{display:block;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;font-size:9.5px}
+header a{margin-left:auto;color:var(--bright);text-decoration:none;font-size:11px;letter-spacing:.18em;text-transform:uppercase;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:9px 16px}
+main{max-width:1100px;margin:0 auto;padding:28px clamp(18px,4vw,56px) 80px}
+h1{font-size:clamp(2rem,4vw,3rem);line-height:1.04;letter-spacing:-.025em;margin:10px 0 6px;font-weight:600}
+.lead{color:var(--tinte2);max-width:62ch;margin-bottom:26px}
+h2{font-size:1.3rem;margin:34px 0 12px;font-weight:600;letter-spacing:-.01em}
+.z{display:grid;gap:10px}
+.p{display:grid;grid-template-columns:14px minmax(0,1fr);gap:14px;align-items:start;padding:14px 18px;border-radius:14px;background:var(--karte);box-shadow:inset 0 0 0 1px rgba(11,11,12,.1)}
+.p i{width:12px;height:12px;border-radius:50%;margin-top:6px;background:#bbb}
+.p.ok i{background:#4caf7d}.p.gelb i{background:#e6b422}.p.rot i{background:var(--pink)}
+.p b{display:block;font-weight:600}.p span{color:var(--tinte2);font-size:14px}
+.kn{display:inline-flex;align-items:center;height:42px;padding:0 18px;border-radius:999px;border:0;background:var(--ink);color:var(--bright);font:600 11px/1 "Space Grotesk",system-ui,sans-serif;letter-spacing:.18em;text-transform:uppercase;cursor:pointer}
+.kn.warte{background:var(--pink);color:#fff}
+.kn-reihe{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+dl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:8px 20px;margin:0}
+dt{font-weight:600}dd{margin:0;color:var(--tinte2)}
+pre{white-space:pre-wrap;font-size:12px;background:var(--karte);padding:12px 14px;border-radius:12px;max-height:260px;overflow:auto}
+</style>
+</head>
+<body>
+<header><span class="z"></span><div><b>Check</b><small>Print Workshop · txtme.social</small></div><a href="./">To the workshop</a></header>
+<main>
+  <h1>Is everything in order?</h1>
+  <p class="lead">This page runs without the workshop. It checks the browser, the brand data, the fonts, the templates, the storage of this browser and the AI service. Green is fine, yellow is worth a look, red needs a fix. Repairs ask for a second click.</p>
+  <h2>Status</h2>
+  <div class="z" id="punkte"></div>
+  <h2>Repairs</h2>
+  <div class="kn-reihe">
+    <button class="kn" data-rep="sichern">Save all pieces as a file</button>
+    <button class="kn" data-rep="fehler">Clear error list</button>
+    <button class="kn" data-rep="willkommen">Show the welcome again</button>
+    <button class="kn" data-rep="beispiele">Put the examples back</button>
+  </div>
+  <h2>Browser errors recorded</h2>
+  <pre id="fehler">–</pre>
+  <h2>Glossary (see · reason · do)</h2>
+  <dl>
+    <dt id="m-herkunft">HERKUNFT</dt><dd>See: «Request from another site refused.» · Reason: the request did not come from this page. · Do: open the workshop from its own address and try again.</dd>
+    <dt id="m-form">FORM</dt><dd>See: «Only JSON.» · Reason: a request without JSON body. · Do: reload the workshop.</dd>
+    <dt id="m-groesse">GROESSE</dt><dd>See: «Request too large.» · Reason: more than 60 KB were sent. · Do: shorten the description.</dd>
+    <dt id="m-grenze">GRENZE</dt><dd>See: «Too many drafts in a short time.» · Reason: more than 40 drafts per hour. · Do: wait an hour.</dd>
+    <dt id="m-ki-dienst">KI-DIENST</dt><dd>See: «The draft did not work.» · Reason: the AI service answered with an error or is switched off (demo). · Do: use the templates; the AI is switched on only with DRUCK_KI=1 and a key from the environment.</dd>
+    <dt id="m-speicher">STORAGE</dt><dd>See: «The browser storage is full.» · Reason: localStorage holds about 5 MB. · Do: save pieces as a working file, then delete old ones.</dd>
+    <dt id="m-schrift">FONT</dt><dd>See: a PDF without Space Grotesk. · Reason: a font file in haeuser/txtme/schriften is missing. · Do: run bau.py txtme again.</dd>
+  </dl>
+</main>
+<script>
+(function () {
+  const $ = s => document.querySelector(s), P = [];
+  const p = (stufe, t, s) => P.push({ stufe, t, s });
+  const lies = (k, d) => { try { const v = localStorage.getItem(k); return v ? JSON.parse(v) : d; } catch (e) { return d; } };
+  async function lauf() {
+    // Browser
+    let ls = true; try { localStorage.setItem('_p', '1'); localStorage.removeItem('_p'); } catch (e) { ls = false; }
+    p(ls ? 'ok' : 'rot', 'Browser storage', ls ? 'localStorage works; pieces are saved in this browser.' : 'localStorage is blocked (private window?). Pieces are not saved.');
+    p(window.indexedDB ? 'ok' : 'gelb', 'Own photos', window.indexedDB ? 'IndexedDB available for uploaded photos.' : 'No IndexedDB: own photos stay for the session only.');
+    p(document.createElement('canvas').getContext('2d') ? 'ok' : 'rot', 'Rendering for the PDF', 'Canvas is available.');
+    // Marke
+    let M = null; try { M = await (await fetch('haeuser/txtme/marke.json', { cache: 'no-store' })).json(); } catch (e) { }
+    if (M && M.zeichen && M.zeichen.pfade) { const z = M.zeichen; document.querySelector('header .z').innerHTML = `<svg viewBox="${z.vb.join(' ')}" preserveAspectRatio="xMidYMid meet" style="display:block;width:100%;height:100%" aria-hidden="true"><g fill="currentColor">${z.pfade.map(d => `<path d="${d}"/>`).join('')}</g></svg>`; }
+    p(M ? 'ok' : 'rot', 'Brand data', M ? `${M.name}: ${Object.keys(M.farben).length} colours, ${Object.keys(M.schriften).length} fonts, ${M.bilder.length} photos, logo with ${M.zeichen.pfade.length} paths.` : 'haeuser/txtme/marke.json could not be loaded. Run bau.py txtme.');
+    if (M) {
+      let fehlt = [];
+      for (const [k, s] of Object.entries(M.schriften)) { const r = await fetch('haeuser/txtme/schriften/' + s.datei, { method: 'HEAD' }).catch(() => ({ ok: false })); if (!r.ok) fehlt.push(s.datei); }
+      p(fehlt.length ? 'rot' : 'ok', 'Fonts', fehlt.length ? 'Missing: ' + fehlt.join(', ') : 'All font files present (static TrueType cuts, no Type 3 in the PDF).');
+      const r = await fetch('haeuser/txtme/mini/' + M.bilder[0].key + '.webp', { method: 'HEAD' }).catch(() => ({ ok: false }));
+      p(r.ok ? 'ok' : 'gelb', 'Photos', r.ok ? 'Previews reachable; printing uses the largest file of the archive (no separate print versions, by design).' : 'Previews missing: run bau.py txtme.');
+    }
+    // Vorlagen und Katalog
+    let n = 0; try { const s = document.createElement('script'); s.src = 'katalog.js?v=p'; await new Promise((ok, nein) => { s.onload = ok; s.onerror = nein; document.head.appendChild(s); }); const K = window.DSKATALOG; n = K.ANLAESSE.reduce((m, a) => m + K.motive(a).length, 0) + K.ABTEILUNGEN.reduce((m, a) => m + a.vorlagen.length, 0) + K.HINWEISE.length; } catch (e) { }
+    p(n >= 20 ? 'ok' : 'gelb', 'Templates', n ? `${n} ready-set pieces in the catalogue (nights, teams, signs).` : 'The catalogue could not be read.');
+    // Speicher
+    const docs = lies('ds-txtme-docs', {}), zahl = Object.keys(docs).length;
+    let groesse = 0; try { groesse = (localStorage.getItem('ds-txtme-docs') || '').length; } catch (e) { }
+    p(groesse > 4e6 ? 'gelb' : 'ok', 'My pieces', `${zahl} pieces, ${(groesse / 1e6).toFixed(2)} MB of about 5 MB.`);
+    // KI
+    try { const j = await (await fetch('api/entwurf', { cache: 'no-store' })).json(); p(j.ki ? 'gelb' : 'ok', 'AI service', j.ki ? 'AI is ON (DRUCK_KI=1): drafts cost money.' : 'AI is off: the five drafts come from the templates (demo). Nothing leaves this computer.'); }
+    catch (e) { p('gelb', 'AI service', 'The local server does not answer on api/entwurf. Start it with: python3 serve.py 3223'); }
+    const f = lies('txtme-druck-fehler', []);
+    p(f.length ? 'gelb' : 'ok', 'Browser errors', f.length ? `${f.length} recorded (see below).` : 'None recorded.');
+    $('#punkte').innerHTML = P.map(x => `<div class="p ${x.stufe}"><i></i><div><b>${x.t}</b><span>${x.s}</span></div></div>`).join('');
+    $('#fehler').textContent = f.length ? f.map(x => `${x.t} · ${x.m} · ${x.s}`).join('\n') : '–';
+  }
+  const warte = {};
+  document.addEventListener('click', e => {
+    const b = e.target.closest('[data-rep]'); if (!b) return;
+    const r = b.dataset.rep;
+    if (!warte[r]) { warte[r] = setTimeout(() => { delete warte[r]; b.classList.remove('warte'); b.textContent = b.dataset.t; }, 4000); b.dataset.t = b.textContent; b.classList.add('warte'); b.textContent = 'Click again to confirm'; return; }
+    clearTimeout(warte[r]); delete warte[r]; b.classList.remove('warte'); b.textContent = b.dataset.t;
+    if (r === 'sichern') { const d = localStorage.getItem('ds-txtme-docs') || '{}'; const a = document.createElement('a'); a.href = URL.createObjectURL(new Blob([d], { type: 'application/json' })); a.download = 'print-workshop-pieces-' + new Date().toISOString().slice(0, 10) + '.json'; a.click(); }
+    if (r === 'fehler') localStorage.removeItem('txtme-druck-fehler');
+    if (r === 'willkommen') localStorage.removeItem('ds-txtme-willkommen');
+    if (r === 'beispiele') localStorage.removeItem('ds-txtme-beispiele2');
+    P.length = 0; lauf();
+  });
+  lauf();
+})();
+</script>
+</body>
+</html>

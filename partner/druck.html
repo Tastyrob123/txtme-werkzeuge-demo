@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>PDF · Partner Pack · txtme.social</title>
+<link rel="icon" href="media/logo-sm.png">
+<style>
+@font-face { font-family: "Space Grotesk"; src: url("fonts/SpaceGrotesk.woff2") format("woff2"); font-weight: 300 700; font-display: block; }
+:root { --grund: #0b0b0c; --schrift: #f4f2ee; --leise: rgba(244,242,238,.66); }
+html, body { margin: 0; background: var(--grund); color: var(--schrift); font-family: "Space Grotesk", system-ui, sans-serif; }
+.kopf { max-width: 1120px; margin: 0 auto; padding: 32px 16px 20px; display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: end; justify-content: space-between; }
+h1 { margin: 0; font-size: clamp(28px, 4vw, 44px); font-weight: 500; letter-spacing: -.02em; line-height: 1.1; }
+h1 em { font-style: normal; background: linear-gradient(100deg, #60c4e3, #eb5986); -webkit-background-clip: text; background-clip: text; color: transparent; }
+p { margin: 8px 0 0; color: var(--leise); font-size: 16px; line-height: 1.5; max-width: 560px; }
+button { font: inherit; font-weight: 600; font-size: 16px; padding: 13px 22px; border-radius: 999px; border: 0; cursor: pointer; background: linear-gradient(100deg, #60c4e3, #eb5986); color: #0b0b0c; }
+button:disabled { opacity: .45; cursor: default; }
+.buehne { max-width: 1120px; margin: 0 auto 48px; padding: 0 16px; }
+.rahmen { position: relative; width: 100%; overflow: hidden; border-radius: 10px; background: #1a1a1d; }
+.rahmen iframe { position: absolute; left: 0; top: 0; width: 1120px; height: 1582px; border: 0; transform-origin: 0 0; }
+</style>
+</head>
+<body>
+<div class="kopf">
+  <div><h1>The <em>PDF.</em></h1><p id="satz">Setting the published page on A4 …</p></div>
+  <button type="button" id="los" disabled>Save as PDF</button>
+</div>
+<div class="buehne"><div class="rahmen" id="rahmen"><iframe id="blatt" title="The page on A4"></iframe></div></div>
+<script>
+/* Online-Fassung Partner Pack: das PDF ist die veröffentlichte Seite, in 1120 px Breite auf A4-Seiten gesetzt (wie lokal),
+   gedruckt vom Browser des Besuchers («Als PDF sichern»). Nichts geht an einen Server. */
+(function () {
+  var q = new URLSearchParams(location.search), weg = String(q.get('seite') || '').split('?')[0];
+  var f = document.getElementById('blatt'), r = document.getElementById('rahmen'), los = document.getElementById('los'), satz = document.getElementById('satz');
+  var S = 841.92 / 595.92 * 1120, einmal = false;
+  function mass() { var z = r.clientWidth / 1120; f.style.transform = 'scale(' + z + ')'; r.style.height = Math.round(1582 * z) + 'px'; }
+  addEventListener('resize', mass); mass();
+  if (!/^(partner|ambassador)\/[a-z0-9-]{1,40}$/.test(weg)) { satz.textContent = 'This page does not exist.'; return; }
+  f.style.height = Math.floor(S) + 'px';
+  addEventListener('message', function (e) {
+    if (e.origin !== location.origin || !e.data || !e.data.druckFertig) return;
+    var a = e.data.druckFertig;
+    if (a.fehler) { satz.textContent = 'The page could not be set on A4. Reload once.'; return; }
+    satz.textContent = (a.seiten ? a.seiten + ' A4 pages' : 'A4') + ', made from the published page. In the print window choose «Save as PDF».';
+    los.disabled = false;
+    if (!einmal) { einmal = true; setTimeout(drucken, 300); }
+  });
+  function drucken() { try { f.contentWindow.focus(); f.contentWindow.print(); } catch (e) { satz.textContent = 'Printing is blocked in this browser.'; } }
+  los.onclick = drucken;
+  f.src = 'seite.html?seite=' + encodeURIComponent(weg).replace(/%2F/g, '/') + '&druck=1';
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>txtme.social</title>
+<style>html,body{margin:0;background:#0b0b0c;color:#f4f2ee;font-family:system-ui,sans-serif}</style>
+<script src="demo-daten.js"></script>
+<script src="demo.js"></script>
+<script src="render.js"></script>
+</head>
+<body>
+<script>
+/* Online-Fassung Partner Pack: eine Seite des Empfängers, gebaut im Browser aus den gespeicherten Feldern.
+   ?seite=<art>/<slug> = veröffentlichte Fassung, ?seite=vorschau/<art>/<slug> = Entwurf, &druck=1 = für das PDF auf A4 gesetzt
+   (druck.css + umbruch.js wie lokal in drucken.py, Breite 1120 px, Seitenhöhe S). */
+(async function () {
+  var q = new URLSearchParams(location.search);
+  var weg = String(q.get('seite') || '').split('?')[0];
+  var druck = q.get('druck') === '1';
+  var m = /^(vorschau\/)?(partner|ambassador)\/([a-z0-9-]{1,40})$/.exec(weg);
+  function hinweis(t) { document.body.innerHTML = '<p style="max-width:520px;margin:20vh auto;padding:0 16px;font-size:18px;line-height:1.5">' + t + '</p>'; }
+  if (!m) return hinweis('This page does not exist.');
+  var felder = PartnerDemo.felder(m[2], m[3], !!m[1]);
+  if (!felder) return hinweis(m[1] ? 'This recipient does not exist (any more).' : 'This page is not published yet.');
+  var html;
+  try { html = await PartnerSeite.seite(m[2], felder); } catch (e) { return hinweis('The page could not be built.'); }
+  if (druck) {
+    /* wie drucken.py (Emulation prefers-reduced-motion: reduce): die Seite steht ruhig da, ohne halbe Auftritte.
+       Die Abfrage wird in Stilen und Skripten der Seite durch eine gleichwertige, hier immer zutreffende ersetzt. */
+    html = html.replace(/\(\s*prefers-reduced-motion\s*(:\s*reduce\s*)?\)/g, '(min-width: 0px)')
+               .replace(/\(\s*prefers-reduced-motion\s*:\s*no-preference\s*\)/g, '(max-width: 0px)');
+    /* Beim Drucken prüft der Browser Breiten-Abfragen gegen das Papier aus dem Druckfenster, nicht gegen die 1120 px, in denen
+       gesetzt und gemessen wurde (lokal sind Papier und Fenster gleich breit). Jede Abfrage wird darum hier, im 1120-px-Fenster,
+       einmal beantwortet und als feste, gleichwertige Abfrage eingesetzt: Satz beim Messen = Satz beim Drucken. */
+    html = html.replace(/\(\s*(?:min-|max-)?(?:width|height)\s*:\s*[\d.]+(?:px|rem|em)\s*\)|\(\s*(?:any-)?(?:hover|pointer)\s*:\s*[a-z]+\s*\)/g, function (q) {
+      return matchMedia(q).matches ? '(min-width: 0px)' : '(max-width: 0px)';
+    });
+    var S = 841.92 / 595.92 * 1120;
+    /* Blatt = genau eine gesetzte Seite (1120 × S px, Seitenverhältnis A4): die A4-Regel aus druck.css gilt lokal nicht (dort setzt drucken.py
+       Papier und Massstab), im Browser bestimmt das Blatt die Breite, in der gedruckt wird */
+    var css = window.DEMO_DATEN.druck_css.replace(/@page\s*\{[^}]*\}/g, '') + '\n@page { size: 1120px ' + S + 'px; margin: 0; }\n';
+    var lauf = '<scr' + 'ipt>window.addEventListener("load", async function () {' +
+      'var a = {}; try { var t = await (await fetch("druck/umbruch.js")).text(); a = await (0, eval)(t)(' + S + '); } catch (e) { a = { fehler: String(e && e.message || e) }; }' +
+      'window.__druckFertig = a; try { parent.postMessage({ druckFertig: a }, location.origin); } catch (e) {} });</scr' + 'ipt>';
+    html = html.replace('</head>', '<style id="druck-regeln">' + css.replace(/<\//g, '<\\/') + '</style>\n</head>');
+    var i = html.lastIndexOf('</body>');
+    html = html.slice(0, i) + lauf + html.slice(i);
+  }
+  document.open(); document.write(html); document.close();
+})();
+</script>
+</body>
+</html>

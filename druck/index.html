@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="demo.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Print Workshop · txtme.social</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230b0b0c'/%3E%3Ctext x='16' y='21' font-family='system-ui' font-weight='700' font-size='13' fill='%2360c4e3' text-anchor='middle'%3Etxt%3C/text%3E%3C/svg%3E">
+<script>/* Fehlermelder (Master R03), vor allem anderen: Skriptfehler in den Browser-Speicher, höchstens 20, Netzfehler nie, kein Dienst. */
+(function(){var K='txtme-druck-fehler',n=0;function merk(t){try{if(++n>20)return;var l=JSON.parse(localStorage.getItem(K)||'[]');l.push({t:new Date().toISOString(),m:String(t).slice(0,300),s:location.pathname+location.search});localStorage.setItem(K,JSON.stringify(l.slice(-20)))}catch(e){}}
+addEventListener('error',function(e){if(e&&e.message&&!/ResizeObserver|Script error\.$/.test(e.message))merk(e.message+(e.filename?' @'+e.filename.replace(/.*\//,'')+':'+e.lineno:''))});
+addEventListener('unhandledrejection',function(e){var r=e&&e.reason;if(r==null){merk('Promise rejected without a reason (value '+r+')');return}if(!/fetch|network|Load failed|NetworkError/i.test(String(r.message||r)))merk('Promise: '+(r.message||r))});/* Ablehnung mit null zählt mit (Abnahme 06.11.2026, Fund 19) */})();</script>
+<script>if(!/[?&](demo|hilfe)/.test(location.search))document.documentElement.classList.add('start-gleich')</script>
+<script>/* Rückfall, falls das Werkzeug nicht startet: die Startseite zeigt sich spätestens nach 5 s; Startfehler-Tür (R04) nach 15 s ohne Marke */
+addEventListener('DOMContentLoaded',function(){var s0=document.getElementById('start');if(s0)s0.classList.add('erst');(function rf(){setTimeout(function(){var s=document.getElementById('start');if(!s||s.classList.contains('bereit'))return;if(!window.DS)s.classList.add('bereit');else rf()},5000)})();/* Rückfall nur, wenn kein Skript läuft; lädt es noch (langsame Leitung), wartet die Seite (Abnahme 06.11.2026, Fund 8) */
+setTimeout(function(){if(window.__ST&&window.__ST.M)return;var d=document.createElement('div');d.className='tuer';d.setAttribute('role','alertdialog');
+var l=[];try{l=JSON.parse(localStorage.getItem('txtme-druck-fehler')||'[]')}catch(e){}var g=l.length?l[l.length-1].m:'The brand data (haeuser/txtme/marke.json) or a script did not load.';
+d.innerHTML='<div class="tuer__k"><h2>The Print Workshop does not start.</h2><p>'+g.replace(/[<>]/g,'')+'</p><div class="tuer__kn"><a class="kn" href="pruefung.html"><span>Open check page</span></a><button class="kn kn--klein kn--ohne" onclick="location.reload()"><span>Reload</span></button></div></div>';
+document.body.appendChild(d)},15000)});</script>
+<link rel="stylesheet" href="lib/auswahl.css?v=35">
+<link rel="stylesheet" href="studio.css?v=100">
+<link rel="stylesheet" href="ms-bureau.css?v=100">
+<script>/* Hauseigene Stilschicht (txtme: hell mit Bühne, Kopf Ink). Ein Haus ohne Eintrag bleibt beim Kern. */
+(function(){var HAUS_STIL={txtme:1},h=new URLSearchParams(location.search).get('haus')||'txtme';if(!HAUS_STIL[h])return;var b='haeuser/'+h+'/';
+document.write('<link rel="stylesheet" href="'+b+'hell.css?v=100"><link rel="stylesheet" href="'+b+'feder.css?v=100">'
+ +'<script src="'+b+'buehne.js?v=100" defer><\/script>'
+ +'<script src="'+b+'feder.js?v=100" defer><\/script>');})();</script>
+</head>
+<body>
+<header class="kopf">
+  <button class="kopf__marke" id="kopfMarke" type="button" aria-label="To the overview"><span class="kopf__zeichen" id="kopfZeichen"></span><span><b id="kopfWerkzeug">Print Workshop</b><small>Print · <span id="kopfName">txtme.social</span></small></span></button>
+  <div class="kopf__mitte"><input class="kopf__name" id="docName" aria-label="Name of the piece" spellcheck="false"><span class="kopf__gespeichert" id="gespeichert">Saved</span></div>
+  <div class="kopf__werk">
+    <button class="rund" id="btnZurueck" data-tip="Undo" aria-label="Undo (⌘Z)"><svg viewBox="0 0 24 24"><path d="M9 7 4 12l5 5M4 12h11a5 5 0 0 1 0 10h-3"/></svg></button>
+    <button class="rund" id="btnVor" data-tip="Redo" aria-label="Redo (⇧⌘Z)"><svg viewBox="0 0 24 24"><path d="m15 7 5 5-5 5M20 12H9a5 5 0 0 0 0 10h3"/></svg></button>
+    <button class="rund" id="btnVerwerfen" data-tip="Discard" aria-label="Discard this draft"><svg viewBox="0 0 24 24"><path d="M5 7h14M10 7V4.5h4V7M7 7l1 13h8l1-13M10.5 11v5.5M13.5 11v5.5"/></svg></button>
+    <span class="kopf__trenn"></span>
+    <button class="kn kn--klein kn--ohne neu" id="btnNeu"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg><span>Overview</span></button>
+    <button class="rund" data-livre="1" data-tip="Brand book" aria-label="Open the brand book in the workshop"><svg viewBox="0 0 24 24"><path d="M4 5.5c2.6-1 5.2-.8 8 1 2.8-1.8 5.4-2 8-1v13c-2.6-1-5.2-.8-8 1-2.8-1.8-5.4-2-8-1z"/><path d="M12 6.5v13"/></svg></button>
+    <a class="rund" href="pruefung.html" target="_blank" rel="noopener" data-tip="Check" aria-label="Open the check page"><svg viewBox="0 0 24 24"><path d="M12 3 4 6.5v5.5c0 4.5 3.4 7.6 8 9 4.6-1.4 8-4.5 8-9V6.5z"/><path d="m9 12 2 2 4-4.5"/></svg></a>
+    <button class="rund hilfe" id="btnHilfe" data-tip="Help" aria-label="Help"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.1-2.4 3.6M12 17.2v.1"/></svg></button>
+    <button class="kn kn--klein kn--ohne pruef" id="btnPruefen"><span class="pruef__zahl" id="pruefZahl">0</span><span class="pruef__t">Print check</span></button>
+    <div class="ausgabe">
+      <button class="kn" id="btnSpeichern"><span class="nb">Save print-ready</span><span class="nk">Save</span><i><svg viewBox="0 0 24 24"><path d="M12 5v12m-5-5 5 5 5-5"/></svg></i></button>
+      <div class="menue" id="menueSpeichern" hidden>
+        <button data-aus="pdf"><i><svg viewBox="0 0 24 24"><path d="M7 3h7l4 4v14H7z"/><path d="M14 3v4h4M10 13h5M10 16.5h5"/></svg></i><span><b>PDF for the printer</b><small>Trim size with 3 mm bleed, fonts embedded, photos up to 300 dpi. Stickers: trimmed to the ink, with cut contour</small></span></button>
+        <button data-aus="marken"><i><svg viewBox="0 0 24 24"><path d="M3 7h3M7 3v3M21 7h-3M17 3v3M3 17h3M7 21v-3M21 17h-3M17 21v-3"/><rect x="8" y="8" width="8" height="8"/></svg></i><span><b>PDF with crop marks</b><small>For the copy shop or the office printer</small></span></button>
+        <button data-aus="png"><i><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="m4 16 5-5 4 4 2.5-2.5L20 17"/><circle cx="15.5" cy="9.5" r="1.4"/></svg></i><span><b>Image of this page</b><small>PNG, to send or for Instagram. Stickers: transparent, trimmed to the ink</small></span></button>
+        <button data-aus="zip" hidden><i><svg viewBox="0 0 24 24"><rect x="3.5" y="6.5" width="13" height="13" rx="2"/><path d="M7.5 3.5h11a2 2 0 0 1 2 2v11"/><path d="m4 17 4-4 3 3 2-2 3.5 3.5"/></svg></i><span><b>All images of the carousel</b><small>Numbered PNGs 1080 × 1350 in one ZIP, with the caption</small></span></button>
+        <button data-aus="json"><i><svg viewBox="0 0 24 24"><path d="M5 4h11l3 3v13H5z"/><path d="M8 4v5h7V4M8 20v-6h8v6"/></svg></i><span><b>Save working file</b><small>To continue later, also on another computer</small></span></button>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="studio">
+  <aside class="links">
+    <nav class="reiter" role="tablist"><span class="reiter__gleiter" aria-hidden="true"></span>
+      <button class="an" data-tab="entwerfen">Describe</button>
+      <button data-tab="vorlagen">Templates</button>
+      <button data-tab="fotos">Photos</button>
+      <button data-tab="ablage">Library</button>
+    </nav>
+
+    <section class="tab an" data-tab="entwerfen">
+      <h2>What should we make?</h2>
+      <p class="leise">Say it in one line. The workshop knows the colours, fonts, logo, photos and the details of the house and lays out five drafts in the style of txtme.social. You pick one.</p>
+      <p class="leise demo-hinweis" id="kiHinweis">Demo: the AI is switched off. The five drafts come from the templates of the house, nothing leaves this computer.</p>
+      <textarea id="auftrag" rows="5" placeholder="For example: a photo frame for the RKN night, portrait, with the date and the venue."></textarea>
+      <div class="zeile2">
+        <label>Format<select id="auftragFormat"></select></label>
+      </div>
+      <label class="haken"><input type="checkbox" id="auftragBasis"> Build on the open piece</label>
+      <button class="kn knopf--voll glanz-kn" id="btnEntwerfen"><span>Lay out five drafts</span><i><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></i></button>
+      <div class="status" id="entwurfStatus" hidden></div>
+      <div class="hinweise" id="entwurfHinweise" hidden></div>
+      <h3>For example</h3>
+      <div class="ideen" id="ideen"></div>
+      <details class="dna">
+        <summary>What the workshop knows about the house</summary>
+        <div id="dna"></div>
+      </details>
+    </section>
+
+    <section class="tab" data-tab="vorlagen">
+      <h2>Start with a template</h2>
+      <div class="zeile2">
+        <label>Format<select id="vorlageFormat"></select></label>
+        <label>Ground<select id="vorlageTon"><option value="dunkel">Ink</option><option value="hell">Bone</option><option value="creme">RKN yellow</option></select></label>
+      </div>
+      <div class="vorlagen" id="vorlagen"></div>
+    </section>
+
+    <section class="tab" data-tab="fotos">
+      <h2>Photos</h2>
+      <label class="hochladen" id="hochladen"><input type="file" id="fotoDatei" accept="image/*,.heic,.heif" multiple hidden>
+        <span class="hochladen__ic"><svg viewBox="0 0 24 24"><path d="M12 16V4m-5 5 5-5 5 5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg></span>
+        <span><b>Upload your own photos</b><small>Click or drop photos here. They stay saved in this browser.</small></span></label>
+      <input type="search" id="fotoSuche" placeholder="Search: ADE, night, tee, code …">
+      <div class="filter" id="fotoFilter"></div>
+      <div class="segment segment--klein" id="fotoLage"><button data-lage="alle" class="an">All shapes</button><button data-lage="quer">Landscape</button><button data-lage="hoch">Portrait</button></div>
+      <p class="leise" id="fotoInfo"></p>
+      <div class="fotos" id="fotos"></div>
+    </section>
+
+    <section class="tab" data-tab="ablage">
+      <h2>Your pieces</h2>
+      <div class="zeile2">
+        <button class="leicht" id="btnNeuLeer">Blank sheet</button>
+        <label class="leicht">Open working file<input type="file" id="dateiLaden" accept=".json,application/json" hidden></label>
+      </div>
+      <div class="ablage" id="ablage"></div>
+    </section>
+  </aside>
+
+  <section class="mitte">
+    <div class="werkzeug" id="werkzeug">
+      <div class="insel">
+        <button data-neu="titel" title="Add a title"><svg viewBox="0 0 24 24"><path d="M5 6.5V5h14v1.5M12 5v14M9.5 19h5"/></svg><span>Title</span></button>
+        <button data-neu="text" title="Add text"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 11.5h16M4 16h11"/></svg><span>Text</span></button>
+        <button data-neu="zeile" title="Label in spaced capitals"><svg viewBox="0 0 24 24"><path d="M3 12h3M8 12h3M13 12h3M18 12h3"/></svg><span>Label</span></button>
+        <i class="insel__trenn"></i>
+        <button data-neu="bild" title="Add a photo"><svg viewBox="0 0 24 24"><rect x="3.5" y="5" width="17" height="14" rx="2"/><path d="m4 16 5-5 4 4 2.5-2.5L20 17"/><circle cx="15.5" cy="9.5" r="1.4"/></svg><span>Photo</span></button>
+        <button data-neu="zeichen" title="Logo of the house"><span class="insel__zeichen" id="inselZeichen"></span><span>Logo</span></button>
+        <i class="insel__trenn"></i>
+        <button data-neu="linie" title="Rule"><svg viewBox="0 0 24 24"><path d="M5 12h14"/></svg><span>Rule</span></button>
+        <button data-neu="flaeche" title="Area"><svg viewBox="0 0 24 24"><rect x="5" y="6" width="14" height="12" rx="1.5" fill="currentColor" fill-opacity=".25"/></svg><span>Area</span></button>
+        <button data-neu="rahmen" title="Frame"><svg viewBox="0 0 24 24"><rect x="4.5" y="5.5" width="15" height="13" rx="2"/><rect x="7" y="8" width="10" height="8" rx="1"/></svg><span>Frame</span></button>
+        <i class="insel__trenn"></i>
+        <button data-livre="1" title="Brand book: photos, logo, colours"><svg viewBox="0 0 24 24"><path d="M4 5.5c2.6-1 5.2-.8 8 1 2.8-1.8 5.4-2 8-1v13c-2.6-1-5.2-.8-8 1-2.8-1.8-5.4-2-8-1z"/><path d="M12 6.5v13"/></svg><span>Brand book</span></button>
+      </div>
+      <div class="seitenwahl" id="seitenwahl"></div>
+    </div>
+    <div class="flaeche" id="flaeche">
+      <div class="wirt" id="wirt"></div>
+    </div>
+    <div class="fussleiste"><div class="insel insel--klein">
+      <span id="formatInfo"></span>
+      <i class="insel__trenn"></i>
+      <label class="schalter"><input type="checkbox" id="zeigeHilfen" checked><b></b><span>Trim edge</span></label>
+      <i class="insel__trenn"></i>
+      <button class="rund rund--klein" id="zoomAus" aria-label="Smaller"><svg viewBox="0 0 24 24"><path d="M6 12h12"/></svg></button><span id="zoomWert">100 %</span><button class="rund rund--klein" id="zoomEin" aria-label="Larger"><svg viewBox="0 0 24 24"><path d="M6 12h12M12 6v12"/></svg></button>
+    </div></div>
+  </section>
+
+  <aside class="rechts" id="rechts"></aside>
+</main>
+
+<div class="dialog" id="dialog" hidden><div class="dialog__karte" id="dialogKarte"></div></div>
+<div class="start ms" id="start" hidden>
+  <aside class="ms-leiste">
+    <div class="ms-marke"><span class="ms-zeichen" id="kapitelZeichen"></span><div><b>txtme.social</b><small id="leisteWerkzeug">Print Workshop</small></div></div>
+    <span class="ms-haar"></span>
+    <button class="kn ms-kn-gold glanz-kn" data-akt="neu"><span>New piece</span><i><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></button>
+    <nav class="ms-nav ms-nav--haupt" id="msNav"><span class="ms-gleiter" aria-hidden="true"></span>
+      <button data-ansicht="start"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5V20a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span>Overview</span></button>
+      <button data-ansicht="events"><svg viewBox="0 0 24 24"><path d="M4 6h16v14H4zM4 10h16M8 3v4M16 3v4"/></svg><span>Nights</span><em id="evZahl"></em></button>
+      <button data-ansicht="abteilungen"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3.2"/><circle cx="16.5" cy="9.5" r="2.4"/><path d="M3.5 19a5.5 5.5 0 0 1 11 0M14.5 18.5a4 4 0 0 1 6 0"/></svg><span>Teams</span><em id="abZahl"></em></button>
+      <button data-ansicht="hinweise"><svg viewBox="0 0 24 24"><path d="M12 3 2.5 20h19zM12 10v4.5M12 17.5v.1"/></svg><span>Signs</span><em id="hiZahl"></em></button>
+      <span class="ms-trenn"></span>
+      <button data-ansicht="meine"><svg viewBox="0 0 24 24"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8zM14 3v5h5"/></svg><span>My pieces</span><em id="meineZahl">0</em></button>
+      <button data-ansicht="freigegeben"><svg viewBox="0 0 24 24"><circle cx="12" cy="10" r="6"/><path d="m9.5 10 1.8 1.8 3.4-3.6M8.5 15 7 21l5-2.5 5 2.5-1.5-6"/></svg><span>Approved</span><em id="fgZahl">0</em></button>
+      <button data-ansicht="neu"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4zM4 9h16M9 9v11"/></svg><span>Types & templates</span><em>12</em></button>
+      <button data-ansicht="fotos"><svg viewBox="0 0 24 24"><path d="M4 5h16v14H4zM4 16l5-5 4 4 2.5-2.5L20 17M15.5 8.2a1.3 1.3 0 1 0 0 2.6 1.3 1.3 0 0 0 0-2.6"/></svg><span>Photos</span><em id="fotoZahl"></em></button>
+      <button data-ansicht="livre"><svg viewBox="0 0 24 24"><path d="M4 5.5c2.6-1 5.2-.8 8 1 2.8-1.8 5.4-2 8-1v13c-2.6-1-5.2-.8-8 1-2.8-1.8-5.4-2-8-1z"/><path d="M12 6.5v13"/></svg><span>Brand book</span></button>
+      <button data-ansicht="marke"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.5-.8 1.5-1.6 0-1.3-1-1.6-1-2.6 0-.8.7-1.3 1.5-1.3H16a5 5 0 0 0 5-5c0-4-4-7.5-9-7.5zM7.5 11.5h.01M10 7.5h.01M15 7.5h.01"/></svg><span>The brand</span></button>
+    </nav>
+    <div class="ms-fuss"><button id="startHilfe"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.6 9.3a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.1-2.4 3.6M12 17.2v.1"/></svg><span>Help and tour</span></button><span class="ms-wege"><a data-weg="backstage" target="_blank" rel="noopener">Backstage</a> · <a data-weg="website" target="_blank" rel="noopener">Website</a> · <a href="pruefung.html" target="_blank" rel="noopener">Check</a></span><small>Everything stays saved in this browser</small></div>
+  </aside>
+  <header class="ms-kopf">
+    <span class="ms-kopf-zeichen" id="msKopfZeichen"></span><span class="ms-kopf-name"><b id="msKopfWerkzeug">Print Workshop</b><small>txtme.social</small></span>
+    <label class="ms-suche"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"/><path d="m20 20-4.2-4.2"/></svg><input type="search" id="startSuche" placeholder="Search …" aria-label="Search"><kbd>⌘ K</kbd></label>
+    <span class="ms-frei"></span>
+    <button class="kn kn--klein kn--ohne start__zu" id="startZu" hidden><svg viewBox="0 0 24 24"><path d="M19 12H5m6-6-6 6 6 6"/></svg><span>Back to the piece</span></button>
+    <button class="rund ms-rund" data-ansicht="livre" data-tip="Brand book" aria-label="Brand book"><svg viewBox="0 0 24 24"><path d="M4 5.5c2.6-1 5.2-.8 8 1 2.8-1.8 5.4-2 8-1v13c-2.6-1-5.2-.8-8 1-2.8-1.8-5.4-2-8-1z"/><path d="M12 6.5v13"/></svg></button>
+    <button class="kn kn--klein ms-kn-neu" data-akt="neu"><span>New</span><i><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></i></button>
+  </header>
+  <div class="start__in ms-haupt">
+    <section class="start__wahl" id="startWahl">
+      <div id="msStart">
+        <div class="ms-gruss">
+          <h1 id="msGruss">Good evening</h1>
+          <p id="msSatz">What are we making tonight?</p>
+          <div class="ms-feld">
+            <span class="ms-feld__ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></span>
+            <textarea id="startFrei" rows="1" placeholder="For example: a photo frame for the RKN night" aria-label="Describe what should be made"></textarea>
+            <button class="kn knopf--voll glanz-kn" data-st="frei"><span>Five drafts</span><i><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></i></button>
+          </div>
+          <button class="ms-lnk ms-lnk--alle" data-ansicht="neu" id="msAlle" hidden><span></span><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button>
+        </div>
+        <div class="ms-zeile"><h2>The nights</h2><button class="ms-lnk" data-ansicht="events"><span>All nights</span><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button></div>
+        <div class="ms-wochen" id="startWochen"></div>
+        <div class="ms-zeile"><h2>Teams</h2><button class="ms-lnk" data-ansicht="abteilungen"><span>All teams</span><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button></div>
+        <div class="ms-wochen ms-wochen--abt" id="startAbteilungen"></div>
+        <div class="ms-zeile"><h2>Last edited</h2><button class="ms-lnk" data-ansicht="meine"><span>All pieces</span><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></button></div>
+        <div class="ms-raster" id="startZuletzt"></div>
+      </div>
+      <div id="msEvents" hidden>
+        <div class="ms-titel"><h1>Nights</h1><span class="ms-leise">Every night of txtme.social: RKN, ADE and the ones to come. Each with its photo frames, stickers, tickets, poster, post and story, set in one go.</span></div>
+        <div class="ms-chips"><button data-efilter="alle" class="an">All</button><button data-efilter="kommt">Coming up</button><button data-efilter="vorbei">Past</button></div>
+        <div id="evListe"></div>
+        <div class="vb__alle" id="evAlle"></div>
+      </div>
+      <div id="msAbteilungen" hidden>
+        <div class="ms-titel"><h1>Teams</h1><span class="ms-leise">What each team of the night hands out or hangs up: door, bar, street team, social media.</span></div>
+        <div class="ms-wochen" id="abListe"></div>
+        <div class="vb__alle" id="abAlle"></div>
+      </div>
+      <div id="msHinweise" hidden>
+        <div class="ms-titel"><h1>Signs for the night</h1><span class="ms-leise">Doors, cloakroom, no photos, sold out: ready in the brand. Fill in the [brackets] and hang it up.</span></div>
+        <div class="ms-raster" id="hiRaster"></div>
+        <div class="vb__alle" id="hiAlle"></div>
+      </div>
+      <div id="msNewsletter" hidden>
+        <div class="ms-raster" id="nlRaster"></div><em id="nlZahl" hidden></em>
+      </div>
+      <div id="msDetail" hidden></div>
+      <div id="msFotos" hidden>
+        <div class="ms-titel"><h1>Photos</h1><span class="ms-leise" id="fotoSatz"></span></div>
+        <div class="ms-chips" id="fotoGruppen"></div>
+        <div class="ms-fotos" id="fotoRaster"></div>
+      </div>
+      <div id="msMarke" hidden></div>
+      <div id="msLivre" hidden></div>
+      <div id="msFreigegeben" hidden>
+        <div class="ms-titel"><h1>Ready to use</h1><span class="ms-leise">These pieces are approved: every team named may print and use them without asking, even if nobody is around. Replace anything in [brackets] first.</span></div>
+        <div id="fgListe"></div>
+      </div>
+      <div id="msMeine" hidden>
+        <div class="ms-titel"><h1>My pieces</h1><span class="ms-leise" id="meineSatz"></span></div>
+        <div class="ms-raster" id="bibliothek"></div>
+      </div>
+      <div id="msNeu" class="ms-buehne" hidden>
+        <h1>What do you want to make?</h1>
+        <p class="start__satz">Describe in one line what should be made and the workshop lays out five drafts. Or pick a type below.</p>
+        <div class="start__direkt">
+          <span class="start__direkt-ic"><svg viewBox="0 0 24 24"><path d="M12 3l1.9 4.6L18.5 9.5l-4.6 1.9L12 16l-1.9-4.6L5.5 9.5l4.6-1.9z"/><path d="M19 15l.8 2 2 .8-2 .8-.8 2-.8-2-2-.8 2-.8z"/></svg></span>
+          <textarea id="startDirekt" rows="1" placeholder="For example: a sticker for the next night" aria-label="Describe what should be made"></textarea>
+          <button class="kn knopf--voll glanz-kn" data-st="direkt"><span>Five drafts</span><i><svg viewBox="0 0 24 24"><path d="M5 12h14m-6-6 6 6-6 6"/></svg></i></button>
+        </div>
+        <p class="start__fehler" id="startDirektFehler" hidden>That didn’t work right now. Please try again or pick a type below.</p>
+        <div class="start__filter"><div class="start__gruppen" id="startGruppen"></div></div>
+        <div class="atelier" id="arten"></div>
+      </div>
+      <p class="start__nichts" id="startNichts" hidden>Nothing found.</p>
+    </section>
+    <section class="start__weg ms-buehne" id="startWeg" hidden></section>
+  </div>
+</div>
+<div class="meldung" id="meldung" hidden role="status" aria-live="polite"></div>
+<div class="lader" id="lader" hidden><div class="lader__in"><span class="lader__zeichen" id="laderZeichen"></span><b id="laderText">The workshop is drafting</b><small id="laderZeile">Format, layout, photos and lines in the style of the house</small><span class="lader__band"><i></i></span></div></div>
+
+<script src="lib/pdf-lib.min.js"></script>
+<script src="lib/fontkit.umd.min.js"></script>
+<script src="lib/auswahl.js?v=100"></script>
+<script src="satz.js?v=100"></script>
+<script src="eigene.js?v=100"></script>
+<script src="vorlagen.js?v=100"></script>
+<script src="druck.js?v=100"></script>
+<script src="studio.js?v=100"></script>
+<script src="instagram.js?v=100"></script>
+<script src="lelivre.js?v=100"></script>
+<script src="katalog.js?v=100"></script>
+<script src="siegel.js?v=100"></script>
+<script src="start.js?v=100"></script>
+<script src="fuehrung.js?v=100"></script>
+<script src="lib/zur-werkbank.js?v=100" defer data-fremd data-neben=".ms-leiste,.links" data-ueber=".fussleiste .insel,.ms-fuss" data-schrift="haeuser/txtme/schriften/SpaceGrotesk-Medium.ttf"></script>   <!-- «Zur Werkbank» unten links, nur nach einem Besuch aus der Werkbank -->
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script>/* Frame R03/R04: note errors before anything else runs (to localStorage and to api/fehler), and the start-failure door with «Open check». Network errors never, at most 20 per page, its own failure never again. */
+(function(){var zahl=0;function merk(t){t=String(t);if(++zahl>20||/Load failed|access control|abort|NetworkError|Failed to fetch/i.test(t))return;
+try{var a=JSON.parse(localStorage.getItem('partner-pack-fehler')||'[]');a.push({zeit:new Date().toISOString(),text:t.slice(0,600)});localStorage.setItem('partner-pack-fehler',JSON.stringify(a.slice(-30)))}catch(e){}
+try{fetch('api/fehler',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({text:'Partner Pack · '+t.slice(0,580)}),keepalive:true}).catch(function(){})}catch(e){}}
+window.addEventListener('error',function(e){if(!e.message&&e.target&&e.target!==window)return;merk((e.message||'Error')+' · '+(e.filename||'').split('/').pop()+':'+(e.lineno||''))});
+window.addEventListener('unhandledrejection',function(e){merk('Promise: '+((e.reason&&e.reason.message)||e.reason))});window.werkzeugMerk=merk;
+window.werkzeugTuer=function(grund){if(document.getElementById('wz-tuer'))return;var d=document.createElement('div');d.id='wz-tuer';d.setAttribute('role','alert');
+d.style.cssText='position:fixed;inset:0;z-index:2147483000;visibility:visible;display:grid;place-items:center;padding:24px;background:rgba(11,11,12,.94);color:#f4f2ee;font-family:"Space Grotesk",system-ui,sans-serif;text-align:center';
+d.innerHTML='<div style="max-width:520px"><p style="font-size:1.5rem;font-weight:600;margin:0 0 10px">Partner Pack does not start.</p><p id="wz-tuer-t" style="margin:0 0 22px;color:rgba(244,242,238,.75)"></p>'+
+'<a href="pruefung.html" style="display:inline-block;margin:0 6px;padding:12px 20px;border-radius:999px;background:linear-gradient(100deg,#60c4e3,#eb5986);color:#0b0b0c;text-decoration:none;font-weight:600">Open check</a>'+
+'<button type="button" onclick="location.reload()" style="margin:0 6px;padding:12px 20px;border-radius:999px;border:1px solid rgba(244,242,238,.4);background:none;color:#f4f2ee;font:inherit;cursor:pointer">Reload</button></div>';
+d.querySelector('#wz-tuer-t').textContent=String(grund||'The tool did not load.').replace(/^[A-ZÄÖÜ-]+ · /,'');(document.body||document.documentElement).appendChild(d);merk('Start failure: '+grund)};
+setTimeout(function(){if(!document.getElementById('kopf')||document.getElementById('kopf').children.length)return;if(document.documentElement.classList.contains('auftakt')||document.getElementById('tuer')&&!document.getElementById('tuer').hidden)return;werkzeugTuer('The page did not build its view in 12 seconds.')},12000);
+})();</script>
+<title>Partner Pack · txtme.social</title>
+<meta name="robots" content="noindex">
+<meta name="theme-color" content="#0b0b0c">
+<link rel="icon" href="media/logo-sm.png">
+<link rel="preload" href="fonts/SpaceGrotesk.woff2" as="font" type="font/woff2" crossorigin>
+<script src="demo-daten.js"></script>
+<script src="demo.js"></script>
+<script src="render.js"></script>
+<script src="rahmen/auftakt.js?v=3"></script>
+<link rel="stylesheet" href="rahmen/studio.css?v=1">
+<link rel="stylesheet" href="partner.css?v=1">
+<link rel="stylesheet" href="rahmen/schweben.css?v=5">
+<link rel="stylesheet" href="rahmen/hell.css?v=1">
+</head>
+<body class="bu re pp">
+<header class="kopf" id="kopf"></header>
+<aside class="rand" id="rand" aria-label="Sections of Partner Pack"></aside>
+<main class="haupt" id="haupt">
+  <div class="start-tuer" id="tuer" hidden>
+    <h1>Partner Pack does not start.</h1>
+    <p id="tuer-t">The connection to the server part is missing.</p>
+    <p><a class="kn" href="pruefung.html">Open check</a></p>
+  </div>
+  <div id="ansicht"></div>
+</main>
+<footer class="leiste" id="leiste" aria-live="polite"></footer>
+<div class="fenster" id="fenster" hidden></div>
+<div class="meldung" id="meldung" aria-live="polite"></div>
+<script src="partner.js?v=1"></script>
+<script src="rahmen/schweben.js?v=3" data-wurzel="#ansicht" data-blaetter="#ansicht h2.zw, #ansicht .lage, #ansicht .re-leer, #ansicht .pp-offen" data-kacheln="#ansicht .pp-art" data-zeilen="#ansicht .pp-liste .pp-a" ></script>
+<script src="zur-werkbank.js?v=1" defer data-zw data-neben="#rand" data-luft="40" data-ueber="#leiste"></script>
+<script src="rahmen/buehne.js?v=1" defer></script>
+<script src="rundgang.js?v=1" defer data-werkzeug="partner"></script>
+</body>
+</html>

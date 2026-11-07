@@ -1,0 +1,161 @@
+[
+ {
+  "name": "Ink",
+  "hex": "#0B0B0C",
+  "rgb": [
+   11,
+   11,
+   12
+  ],
+  "role": "ground of every page"
+ },
+ {
+  "name": "Surface",
+  "hex": "#131315",
+  "rgb": [
+   19,
+   19,
+   21
+  ],
+  "role": "image surfaces, tiles"
+ },
+ {
+  "name": "Surface 2",
+  "hex": "#1A1A1D",
+  "rgb": [
+   26,
+   26,
+   29
+  ],
+  "role": "second surface"
+ },
+ {
+  "name": "Bone",
+  "hex": "#EFECE6",
+  "rgb": [
+   239,
+   236,
+   230
+  ],
+  "role": "the light surface"
+ },
+ {
+  "name": "Bone 2",
+  "hex": "#E5E1D9",
+  "rgb": [
+   229,
+   225,
+   217
+  ],
+  "role": "second light surface"
+ },
+ {
+  "name": "Bright",
+  "hex": "#F4F2EE",
+  "rgb": [
+   244,
+   242,
+   238
+  ],
+  "role": "text on dark"
+ },
+ {
+  "name": "Muted",
+  "hex": "#9D9B96",
+  "rgb": [
+   157,
+   155,
+   150
+  ],
+  "role": "body text, second information"
+ },
+ {
+  "name": "Faint",
+  "hex": "#66645F",
+  "rgb": [
+   102,
+   100,
+   95
+  ],
+  "role": "labels, inactive"
+ },
+ {
+  "name": "Cyan",
+  "hex": "#60C4E3",
+  "rgb": [
+   96,
+   196,
+   227
+  ],
+  "role": "signal, gradient"
+ },
+ {
+  "name": "Pink",
+  "hex": "#EB5986",
+  "rgb": [
+   235,
+   89,
+   134
+  ],
+  "role": "signal, gradient"
+ },
+ {
+  "name": "Text on bone",
+  "hex": "#0B0B0C",
+  "rgb": [
+   11,
+   11,
+   12
+  ],
+  "role": "text on bone"
+ },
+ {
+  "name": "Muted on bone",
+  "hex": "#5B5954",
+  "rgb": [
+   91,
+   89,
+   84
+  ],
+  "role": "text on bone"
+ },
+ {
+  "name": "Faint on bone",
+  "hex": "#8A8781",
+  "rgb": [
+   138,
+   135,
+   129
+  ],
+  "role": "text on bone"
+ },
+ {
+  "name": "Brand gradient",
+  "gradient": "linear-gradient(100deg,#60c4e3,#eb5986)",
+  "stops": [
+   "#60C4E3",
+   "#EB5986"
+  ],
+  "role": "buy button and main buttons, hairlines, the dash above each chapter"
+ },
+ {
+  "name": "Soft gradient on black",
+  "gradient": "linear-gradient(100deg,#9fdcf0,#cfd5ff 55%,#f2a7bf)",
+  "stops": [
+   "#9FDCF0",
+   "#CFD5FF",
+   "#F2A7BF"
+  ],
+  "role": "chapter headlines on black"
+ },
+ {
+  "name": "Soft gradient on bone",
+  "gradient": "linear-gradient(100deg,#2a9cc2,#6b6fd8 55%,#d9467a)",
+  "stops": [
+   "#2A9CC2",
+   "#6B6FD8",
+   "#D9467A"
+  ],
+  "role": "chapter headlines on bone"
+ }
+]

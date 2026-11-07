@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Backstage · txtme.social</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0b0b0c">
+<script src="pyodide/pyodide.js"></script>
+<script src="demo.js"></script>
+<link rel="icon" href="site/media/logo-sm.png">
+<link rel="preload" href="site/fonts/SpaceGrotesk.woff2" as="font" type="font/woff2" crossorigin>
+<script src="sprache-start.js?v=2"></script>
+<link rel="stylesheet" href="backstage.css?v=2">
+<link rel="stylesheet" href="bureau.css?v=2">
+</head>
+<body>
+<p id="notausgang">Backstage is loading …<br>If it stays like this: <a href="pruefung.html">Open the check</a></p>
+<div id="tor" class="tor" hidden></div>
+<div id="app" class="app" hidden>
+  <aside class="rand" id="rand"></aside>
+  <div class="haupt">
+    <main class="flaeche" id="sicht" tabindex="-1"></main>
+    <div class="leiste" id="leiste" aria-live="polite"></div>
+  </div>
+</div>
+<div id="fenster" class="fenster" hidden></div>
+<div id="vergleich" class="vgl" hidden></div>
+<div id="meldung" class="meldung" aria-live="polite"></div>
+<input type="file" id="datei" accept="image/jpeg,image/png,image/webp" hidden>
+<script src="backstage.js?v=2"></script>
+<script src="bureau.js?v=2"></script>
+</body>
+</html>

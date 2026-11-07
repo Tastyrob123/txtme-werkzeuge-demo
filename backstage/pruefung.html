@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prüfung · Backstage txtme.social</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#0b0b0c">
+<script src="pyodide/pyodide.js"></script>
+<script src="demo.js"></script>
+<link rel="icon" href="site/media/logo-sm.png">
+<link rel="stylesheet" href="pruefung.css?v=1">
+<script src="pruefung-start.js?v=1"></script>
+<script src="sprache-start.js?v=2"></script>
+</head>
+<body>
+<header class="kopf">
+  <div class="in">
+    <a class="marke" href="index.html"><span class="logo" aria-hidden="true"></span><span><b>Prüfung</b><small>Backstage · txtme.social</small></span></a>
+    <nav><a href="#browser">Browser</a><a href="#server">Server</a><a href="#seiten">Seiten</a><a href="#reparaturen">Reparaturen</a><a href="#lexikon">Lexikon</a></nav>
+    <a class="kn" href="index.html">Zurück zu Backstage</a>
+  </div>
+</header>
+<main class="in">
+  <section class="auftakt">
+    <h1>Läuft alles?</h1>
+    <p>Diese Seite braucht nichts von Backstage. Sie prüft den Browser, fragt den Server und geht alle Seiten der Website durch. Läuft Backstage nicht, sagt sie, woran es liegt, und repariert das meiste mit einem Knopf.</p>
+    <div class="reihe"><button class="kn kn--brand" type="button" id="los">Jetzt prüfen</button><span id="stand" class="stand">noch nicht geprüft</span></div>
+  </section>
+  <section id="browser"><h2>01 · Browser</h2><div class="punkte" id="p-browser"></div></section>
+  <section id="server"><h2>02 · Server und Daten</h2><div class="punkte" id="p-server"></div></section>
+  <section id="seiten"><h2>03 · Seiten der Website</h2><p class="hin">Jede Seite der veröffentlichten Fassung und des Entwurfs wird aufgerufen, dazu Stil, Skripte, Katalog und Chat-Dateien.</p><div class="punkte" id="p-seiten"></div></section>
+  <section id="reparaturen"><h2>04 · Reparaturen</h2><p class="hin">Jede Reparatur fragt zweimal. Sie ändert nur, was sie sagt.</p><div class="punkte" id="p-reparaturen"></div></section>
+  <section id="fehler"><h2>05 · Fehlerprotokoll</h2><p class="hin">Was Backstage im Browser und auf dem Server an Fehlern gesehen hat, neueste zuerst.</p><div class="punkte" id="p-fehler"></div></section>
+  <section id="lexikon"><h2>06 · Lexikon</h2><p class="hin">Jede bekannte Fehlerquelle: was man sieht, warum, was zu tun ist. Fehlermeldungen in Backstage führen mit «Was tun?» hierher.</p><div class="lex" id="p-lexikon"></div></section>
+</main>
+<footer class="fuss"><div class="in"><span>Prüfung · Backstage txtme.social</span><span id="zeit"></span></div></footer>
+<script src="pruefung.js?v=1"></script>
+<script src="pruefung-bureau.js?v=2"></script>
+<script src="pruefung-en.js?v=1"></script>
+</body>
+</html>

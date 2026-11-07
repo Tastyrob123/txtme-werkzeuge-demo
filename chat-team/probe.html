@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<script src="demo/demo.js?v=1"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>txtme chat · try it</title>
+<meta name="robots" content="noindex">
+<link rel="stylesheet" href="probe.css?v=3">
+</head>
+<body>
+<!-- The chat window the way customers see it on txtme.social (werkbank/out/img/chat-offen.webp): dark card, logo, «What can we do for you?», cards of the topics,
+     field «Ask us anything». Asks the same way as the website: POST /api/gast (here the local demo). Opened by Chat Team with ?probe=1: questions count as examples. -->
+<div class="chat" id="chat">
+  <header class="chat__kopf"><img src="media/logo-white.svg" alt="" width="34" height="30"><div><b>txtme.social</b><small><i></i>txtme.social · replies instantly</small></div></header>
+  <div class="chat__lauf" id="lauf">
+    <div class="chat__gruss" id="gruss">
+      <img src="media/logo-white.svg" alt="" width="52" height="46">
+      <h2>What can we<br>do for you?</h2>
+      <p>Ask anything about the pieces, your code, sizes, shipping and returns.</p>
+      <div class="chat__karten">
+        <button type="button" data-frage="Which size should I take?"><img src="media/pieces/tee-front.webp" alt=""><b>Sizes & fit</b><small>S to XXL, XS to L</small></button>
+        <button type="button" data-frage="How does shipping work and can I return a piece?"><img src="media/shoot/print-900.webp" alt=""><b>Shipping & returns</b><small>Insured, Europe-wide</small></button>
+      </div>
+    </div>
+  </div>
+  <form class="chat__feld" id="feld" autocomplete="off">
+    <textarea id="frage" rows="1" placeholder="Ask us anything" maxlength="600"></textarea>
+    <button type="submit" aria-label="Send"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 13V3M4 7l4-4 4 4"/></svg></button>
+  </form>
+  <p class="chat__fuss">AI assistant of txtme.social. Your order and the team are what counts.</p>
+</div>
+<script src="probe.js?v=1"></script>
+</body>
+</html>

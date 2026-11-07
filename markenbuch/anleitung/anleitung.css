@@ -1,0 +1,7 @@
+/* Anleitung zum Markenbuch: Ergänzungen zum unverändert kopierten Kleid der Werkbank (werkbank.css). Abnahme 2, 07.11.2026.
+   N3: Die Kapitel stehen auf hellem Grund (Knochenweiss); die zweite Zeile der Überschriften nimmt den Verlauf für helle Flächen
+       #2A9CC2 → #6B6FD8 → #D9467A, wie das Markenbuch selbst es vorschreibt, statt des blassen Verlaufs für Schwarz.
+   N4: Die schwebende Leiste oben ist voll deckend, nichts scheint durch (Regel 55d, wie F06). */
+.anl .t1 em,.anl .t2 em{background:var(--grad-soft-d);-webkit-background-clip:text;background-clip:text;color:transparent}
+.anl .t2 span:last-child:not(:first-child),.anl .t2 .z:last-child:not(:first-child)>span{background-image:var(--grad-soft-d);-webkit-background-clip:text;background-clip:text;color:transparent}
+.insel{background:#0b0b0c}

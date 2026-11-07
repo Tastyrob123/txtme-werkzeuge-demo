@@ -1,0 +1,19 @@
+/* txtme.social · colours · Brand Book, 2026-11-07 · values from app/globals.css */
+:root{
+  --color-ink:#0b0b0c;   /* Ink: ground of every page */
+  --color-surface:#131315;   /* Surface: image surfaces, tiles */
+  --color-surface-2:#1a1a1d;   /* Surface 2: second surface */
+  --color-bone:#efece6;   /* Bone: the light surface */
+  --color-bone-2:#e5e1d9;   /* Bone 2: second light surface */
+  --color-bright:#f4f2ee;   /* Bright: text on dark */
+  --color-muted:#9d9b96;   /* Muted: body text, second information */
+  --color-faint:#66645f;   /* Faint: labels, inactive */
+  --color-cyan:#60c4e3;   /* Cyan: signal, gradient */
+  --color-pink:#eb5986;   /* Pink: signal, gradient */
+  --color-bone-bright:#0b0b0c;   /* Text on bone */
+  --color-bone-muted:#5b5954;   /* Muted on bone */
+  --color-bone-faint:#8a8781;   /* Faint on bone */
+  --grad:linear-gradient(100deg,#60c4e3,#eb5986);   /* Brand gradient: buy button and main buttons, hairlines, the dash above each chapter */
+  --grad-soft:linear-gradient(100deg,#9fdcf0,#cfd5ff 55%,#f2a7bf);   /* Soft gradient on black: chapter headlines on black */
+  --grad-soft-d:linear-gradient(100deg,#2a9cc2,#6b6fd8 55%,#d9467a);   /* Soft gradient on bone: chapter headlines on bone */
+}

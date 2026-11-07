@@ -1,0 +1,147 @@
+/* Partner Pack · txtme.social. Lies over rahmen/studio.css (room, head, sidebar, bar, buttons, windows, groups, history, before/after come from there,
+   in the txtme dress of Chat Team). Here only the own: the two kinds, the list of recipients with photos, the mask. Colours and font only from the frame. */
+
+/* Arrival: float in, staggered, once per view (from Chat Team) */
+.re-auf{animation:re-auf .9s var(--e1) both;animation-delay:calc(var(--i,0) * 55ms + 60ms)}
+@keyframes re-auf{from{transform:translate3d(0,18px,0)}}
+@media (prefers-reduced-motion:reduce){.re-auf{animation:none}}
+.re-leer{display:flex;flex-direction:column;align-items:center;gap:8px;max-width:760px;margin:24px auto 0;padding:40px 30px 34px;text-align:center;border-radius:18px;background:var(--platte);box-shadow:var(--platte-s)}
+.re-leer b{font:600 26px/1.15 var(--serif);color:var(--navy)}
+.re-leer p{margin:0;max-width:52ch;font-size:14.5px;color:var(--leise)}
+
+/* Demo line: its own quiet line in the flow, never over content (M26) */
+.demo-zeile{max-width:1180px;margin:0 auto 26px;padding:10px 16px;border-radius:12px;font-size:13px;color:var(--leise);background:rgba(255,255,255,.6);box-shadow:inset 0 0 0 1px rgba(11,11,12,.12)}
+.demo-zeile b{font:600 9.5px var(--mono);letter-spacing:.16em;text-transform:uppercase;color:var(--navy);margin-right:4px}
+
+.pp h2.zw{max-width:1180px;margin-left:auto;margin-right:auto}
+
+/* The two kinds as photo tiles */
+.pp-arten{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;max-width:1180px;margin:0 auto 34px}
+.pp-arten--eins{grid-template-columns:minmax(0,1fr)}
+.pp-art{position:relative;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:center;gap:22px;padding:10px 24px 10px 10px;border:0;border-radius:18px;text-align:left;
+  background:var(--platte);box-shadow:var(--platte-s);transition:transform .6s var(--e2)}
+.pp-art:hover{transform:translate3d(0,-3px,0)}
+.pp-art__bild{position:relative;display:block;aspect-ratio:16/10;border-radius:13px;overflow:hidden;background:#e5e1d9}
+.pp-art__bild img{display:block;width:100%;height:100%;object-fit:cover}
+.pp-art__bild::after{content:'';position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(138,135,129,.55)}
+.pp-art__t b{display:block;font:600 26px/1.1 var(--serif);color:var(--navy)}
+.pp-art__t small{display:block;margin-top:8px;font-size:14px;line-height:1.5;color:var(--leise)}
+.pp-art>i{position:absolute;top:16px;right:16px;display:grid;place-items:center;width:34px;height:34px;border-radius:50%;background:var(--navy);color:#f7f5f1}
+.pp-art>i svg{width:14px;height:14px}
+.pp-arten--eins .pp-art{grid-template-columns:minmax(0,.7fr) minmax(0,1fr)}
+
+/* List of recipients: photo 104 × 78 (Master 3, pictures in every list) */
+.pp-liste{display:flex;flex-direction:column;gap:10px;max-width:1180px;margin:0 auto}
+.pp-a{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:18px;width:100%;padding:12px 20px 12px 12px;border:0;border-radius:16px;text-align:left;cursor:pointer;
+  background:var(--platte);box-shadow:var(--platte-s);transition:transform .6s var(--e2)}
+.pp-a:hover{transform:translate3d(0,-2px,0)}
+.pp-a__bild{position:relative;display:block;width:104px;height:78px;border-radius:12px;overflow:hidden;background:#e5e1d9}
+.pp-a__bild img{display:block;width:100%;height:100%;object-fit:cover}
+.pp-a__bild::after{content:'';position:absolute;inset:0;border-radius:inherit;box-shadow:inset 0 0 0 1px rgba(138,135,129,.55)}
+.pp-a__k{display:block;font:600 9.5px var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--taupe-tief)}
+.pp-a__n b{display:block;margin-top:4px;font:600 23px/1.15 var(--serif);color:var(--navy)}
+.pp-a__n small{display:block;margin-top:4px;font-size:12.5px;line-height:1.45;color:var(--leise)}
+.pp-a__st{padding:6px 12px 5px;border-radius:999px;font:600 9px var(--mono);letter-spacing:.13em;text-transform:uppercase;white-space:nowrap;color:var(--navy);box-shadow:inset 0 0 0 1px rgba(11,11,12,.3)}
+.pp-st--online{background:var(--grad);box-shadow:none;color:#0b0b0c}
+.pp-st--entwurf{background:#25252b;color:#f7f5f1;box-shadow:none}
+
+/* Still open */
+.pp-offen{display:flex;flex-direction:column;gap:4px;max-width:1180px;margin:0 auto 18px;padding:16px 20px;border-radius:16px;background:#ffffff;box-shadow:inset 0 0 0 1.5px var(--pink),0 14px 24px -20px rgba(11,11,12,.4)}
+.pp-offen b{font:600 18px/1.25 var(--serif);color:var(--navy)}
+.pp-offen span{font-size:14px;line-height:1.5}
+.pp-offen small{font-size:12.5px;color:var(--leise)}
+
+/* The mask */
+.pp-maske{max-width:1180px;margin:0 auto}
+.pp-gr>summary{flex-wrap:wrap;row-gap:2px}
+.pp-gr>summary b{flex:0 1 auto}
+.pp-gr>summary small{flex:1 1 260px;font:400 13px/1.4 var(--sans);letter-spacing:0;text-transform:none;color:var(--leise)}
+.pp-gr__i{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:4px 24px;padding:8px 20px 18px}
+.pp-f{min-width:0}
+.pp-gr__i>.pp-f:has(textarea),.pp-gr__i>.pp-liste-f,.pp-gr__i>.pp-gruppe,.pp-gr__i>.pp-ja{grid-column:1/-1}
+.pp .feld input,.pp .feld textarea,.pp-z input,.pp-z textarea{width:100%;padding:11px 14px;border:0;border-radius:12px;background:var(--kuhle);box-shadow:var(--kuhle-s);font-size:15px;line-height:1.5;color:var(--tinte);outline:none}
+.pp .feld input:focus,.pp .feld textarea:focus,.pp-z input:focus,.pp-z textarea:focus{box-shadow:var(--kuhle-s),0 0 0 1.5px var(--cyan)}
+.pp .feld textarea,.pp-z textarea{min-height:76px;resize:vertical;overflow:hidden}
+.pp .feld.offen input,.pp .feld.offen textarea{box-shadow:var(--kuhle-s),0 0 0 1.5px var(--pink)}
+.pp-ph{color:#b3305a!important}
+.pp-pfl{font-style:normal;color:var(--pink);margin-left:4px}
+.pp-label{display:block;margin:4px 0 8px;font:600 9.5px var(--mono);letter-spacing:.17em;text-transform:uppercase;color:var(--taupe-tief)}
+.pp-h{display:block;margin:-2px 0 8px;font-size:12.5px;color:var(--leise)}
+.pp-ja{display:flex;align-items:flex-start;gap:10px;margin:6px 0 14px;cursor:pointer}
+/* switch knob sits in its track: the label is taller than the track, so place the knob from the top */
+.pp-ja::after{top:4px;margin-top:0}
+.pp-ja span{display:flex;flex-direction:column;font-size:14.5px}
+.pp-ja small{font-size:12.5px;color:var(--leise)}
+.pp-wahl{flex-wrap:wrap;margin-bottom:14px}
+.pp-wahl--typ button{padding:9px 13px}
+
+.pp-zeilen{display:flex;flex-direction:column;gap:8px;margin-bottom:10px}
+.pp-z{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:start}
+.pp-weg{width:34px;height:34px;margin-top:6px}
+.pp-dazu{margin:0 0 16px}
+.pp-karten{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin-bottom:12px}
+.pp-karte{padding:12px 16px 4px;border-radius:14px;background:rgba(244,242,238,.7);box-shadow:inset 0 0 0 1px rgba(11,11,12,.14)}
+.pp-karte__k{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+
+.pp-bild{margin-bottom:14px}
+.pp-bild__k{display:flex;align-items:center;gap:14px;width:100%;padding:6px 14px 6px 6px;border:0;border-radius:14px;text-align:left;background:var(--platte);box-shadow:var(--platte-s);transition:transform .5s var(--e2)}
+.pp-bild__k:hover{transform:translate3d(0,-2px,0)}
+.pp-bild__k img,.pp-bild__leer{flex:none;width:104px;height:78px;border-radius:10px;object-fit:cover;display:grid;place-items:center;background:#e5e1d9;font-size:12px;color:var(--leise)}
+.pp-bild__t{min-width:0}
+.pp-bild__t b{display:block;font-size:14px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pp-bild__t small{font-size:12px;color:var(--leise)}
+.pp-bibl{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}
+.pp-bibl button[hidden]{display:none}
+
+/* What happened, remove */
+.pp-fuss{max-width:1180px;margin:34px auto 0}
+.pp-prot__z{display:grid;grid-template-columns:170px minmax(0,1fr) auto;gap:14px;padding:10px 0;border-top:1px solid rgba(11,11,12,.12);font-size:14px}
+.pp-prot__z small{color:var(--leise)}
+.pp-ende{display:flex;justify-content:flex-end;margin-top:22px}
+
+/* Before, after */
+.pp-ae{max-width:1180px;margin:0 auto 22px}
+.pp-vgl{max-width:1400px;margin:0 auto}
+.pp-vgl .rahmen{width:100%}
+.pp-nicht{display:grid;place-items:center;height:100%;margin:0}
+.pp-vgl .vorschau{display:flex;flex-direction:column}
+.vorschau__k a{display:inline-flex;align-items:center;gap:6px}.vorschau__k a svg{width:12px;height:12px}
+.pp-raus-liste{max-height:34vh;overflow:auto}
+
+@media (max-width:900px){
+  .pp-arten{grid-template-columns:1fr}
+  .pp-gr__i{grid-template-columns:1fr;padding:6px 14px 14px}
+  .vgl2{grid-template-columns:1fr}
+  .ae{grid-template-columns:1fr}
+}
+@media (max-width:640px){
+  .pp .haupt{padding-bottom:260px}
+  .quit{flex-wrap:wrap;max-width:100%;padding:12px 12px 12px 18px}.quit>div{flex:1 1 calc(100% - 50px);min-width:0}
+  .pp-art,.pp-arten--eins .pp-art{grid-template-columns:1fr;padding:8px 8px 18px;gap:12px}
+  .pp-art__t{padding:0 10px}
+  .pp-a{grid-template-columns:auto minmax(0,1fr);gap:12px;padding:10px 12px 10px 10px}
+  .pp-a__bild{width:72px;height:54px}
+  .pp-a__n b{font-size:19px}
+  .pp-a__st{grid-column:2;justify-self:start;margin-top:-4px}
+  .pp-prot__z{grid-template-columns:1fr;gap:2px}
+  .pp-karten{grid-template-columns:1fr}
+  .fenster h2{font-size:30px}
+}
+
+/* Buttons and links in the head of a view: same size (a button takes the body font otherwise, .bu button{font:inherit}) */
+.bu .titel__kn .kn{font-size:11px}.bu .titel__kn .kn--klein{font-size:10px}
+.titel__kn{display:flex;flex-wrap:wrap;gap:10px}
+
+/* An open window keeps its buttons free: receipts move to the top edge (on the phone they lay over «Publish now») */
+body.fenster-offen .meldung{top:calc(var(--kopf) + 10px);bottom:auto;z-index:75}
+.pp-raus-liste .zl{display:block}
+/* Frühere Fassungen: «Into the draft» wird nie gestaucht; am Handy Datum oben, Knopf darunter (Abnahme C2) */
+.vl>.kn{flex:none;white-space:nowrap}
+@media (max-width:560px){.vl{flex-direction:column;align-items:flex-start;gap:12px}}
+/* Bühne Botschafter «Travel»: das Hochformat-Foto zeigt das Gesicht oben, nicht die Brust aus der Mitte (Abnahme C3, Fehlerbuch: Gesichter nie angeschnitten) */
+.buehne__foto img[src$="/ambassador/media/tram-800.webp"]{object-position:50% 6%}
+.pp-namen{box-shadow:inset 0 0 0 1.5px var(--cyan, #60c4e3),0 14px 24px -20px rgba(11,11,12,.4)}
+/* Bühne mit dem Kamera-Foto: der Aufdruck «SEE YOU OFFLINE.» lag dort, wo der Bühnensatz läuft; nur bei diesem Foto
+   rückt die Bildfläche nach rechts, Text und Foto berühren sich nicht mehr (Abnahme 2, C4). Handy unverändert. */
+@media (min-width:861px){.buehne__foto:has(img[src$="/partner/media/camera-front.webp"]){width:min(46%,660px)}}
+@media (min-width:861px){.titel.buehne:has(.buehne__foto img[src$="/partner/media/camera-front.webp"]) p.satz{max-width:min(58ch,calc(100% + clamp(28px,3.6vw,58px) - min(.46 * (100% + 2 * clamp(28px,3.6vw,58px)),660px) - 16px))}}
